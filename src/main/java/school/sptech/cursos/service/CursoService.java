@@ -52,7 +52,6 @@ public class CursoService {
         AreaCurso area = this.repositoryArea.findByNome(request.getAreaCurso().getNome())
                 .orElseThrow(() -> new EntityNotFoundException("nome da Área não encontrada"));
 
-
         EnderecoCurso endereco = new EnderecoCurso();
         endereco.setRua(request.getEndereco().getRua());
         endereco.setCidade(request.getEndereco().getCidade());
@@ -99,7 +98,7 @@ public class CursoService {
         Curso curso = this.repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado com id: " + id));
 
-        // Busca a área pelo nome
+        // Busca a area pelo nome
         AreaCurso area = this.repositoryArea.findByNome(request.getAreaCurso().getNome())
                 .orElseThrow(() -> new EntityNotFoundException("Nome da área não encontrada"));
 

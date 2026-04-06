@@ -3,15 +3,15 @@ package school.sptech.cursos.service;
 import org.springframework.stereotype.Service;
 import school.sptech.cursos.DTO.UsuarioDTO;
 import school.sptech.cursos.model.Usuario;
-import school.sptech.cursos.repository.UsuarioRepository;
+import school.sptech.cursos.repository.IUsuarioRepository;
 
 import java.util.List;
 
 @Service
 public class UsuarioService {
-    private final UsuarioRepository repository;
+    private final IUsuarioRepository repository;
 
-    public UsuarioService(UsuarioRepository repository) {
+    public UsuarioService(IUsuarioRepository repository) {
         this.repository = repository;
     }
 

@@ -3,6 +3,9 @@ package school.sptech.cursos.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import school.sptech.cursos.DTO.UsuarioDTO;
+import school.sptech.cursos.model.Usuario;
+import school.sptech.cursos.service.UsuarioService;
 
 import java.util.List;
 
