@@ -1,5 +1,6 @@
 package school.sptech.cursos.Config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -25,15 +26,36 @@ import school.sptech.cursos.service.AutenticacaoService;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Configuração central do Spring Security para autenticação JWT stateless.
+ *
+ * <p>Esta classe define toda a política de segurança da aplicação:</p>
+ * <ul>
+ *   <li>Quais endpoints são públicos e quais exigem autenticação</li>
+ *   <li>Como o JWT é processado em cada requisição (via filtro customizado)</li>
+ *   <li>Política de sessão, CORS e CSRF</li>
+ *   <li>Algoritmo de hash de senha</li>
+ * </ul>
+ *
+ * <p><b>Anotações utilizadas:</b></p>
+ * <ul>
+ *   <li>{@code @Configuration}: indica que esta classe contém definições de beans Spring</li>
+ *   <li>{@code @EnableWebSecurity}: ativa a configuração do Spring Security via código Java</li>
+ *   <li>{@code @EnableMethodSecurity}: habilita anotações de segurança nos métodos
+ *       (ex: {@code @PreAuthorize("hasRole('ADMIN')")})</li>
+ * </ul>
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfiguracao {
 
+    @Autowired
+    private AutenticacaoService autenticacaoService;
 
-    private final AutenticacaoService autenticacaoService;
-
-    private final AutenticacaoEntryPoint autenticacaoJwtEntryPoint;
+    // AutenticacaoEntryPoint é registrado como @Component, o Spring injeta automaticamente
+    @Autowired
+    private AutenticacaoEntryPoint autenticacaoJwtEntryPoint;
 
     private static final String[] URLS_PERMITIDAS = {
             "/swagger-ui/**",
@@ -53,11 +75,6 @@ public class SecurityConfiguracao {
             "/h2-console/*/**",
             "/error/**"
     };
-
-    public SecurityConfiguracao(AutenticacaoService autenticacaoService, AutenticacaoEntryPoint autenticacaoJwtEntryPoint) {
-        this.autenticacaoService = autenticacaoService;
-        this.autenticacaoJwtEntryPoint = autenticacaoJwtEntryPoint;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
