@@ -101,4 +101,15 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(autenticacao);
         }
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        String method = request.getMethod();
+
+        // Ignora validação JWT para POST /usuarios e POST /usuarios/login
+        return ("/usuarios".equals(path) && "POST".equalsIgnoreCase(method))
+                || ("/usuarios/login".equals(path) && "POST".equalsIgnoreCase(method));
+    }
+
 }

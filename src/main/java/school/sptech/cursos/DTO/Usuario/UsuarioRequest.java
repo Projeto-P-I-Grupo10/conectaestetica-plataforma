@@ -16,9 +16,10 @@ public class UsuarioRequest {
 
     @NotBlank(message = "Senha é obrigatória")
     @Pattern(
-            regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$",
-            message = "Senha deve ter pelo menos 6 caracteres, com letras e números"
+            regexp = "^(?=.*[A-Za-z])(?=.*\\d).{8,}$",
+            message = "Senha deve ter pelo menos 8 caracteres, com letras e números"
     )
+
     private String senha;
 
     @NotBlank(message = "Telefone é obrigatório")
