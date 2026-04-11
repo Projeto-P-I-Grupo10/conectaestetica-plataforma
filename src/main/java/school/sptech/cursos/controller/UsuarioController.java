@@ -3,8 +3,8 @@ package school.sptech.cursos.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import school.sptech.cursos.DTO.UsuarioDTO;
-import school.sptech.cursos.model.Usuario;
+import school.sptech.cursos.DTO.Usuario.UsuarioRequest;
+import school.sptech.cursos.DTO.Usuario.UsuarioResponse;
 import school.sptech.cursos.service.UsuarioService;
 
 import java.util.List;
@@ -20,35 +20,36 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> listar() {
+    public ResponseEntity<List<UsuarioResponse>> listar() {
         return ResponseEntity.ok(service.listar());
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> criar(@RequestBody @Valid UsuarioDTO dto) {
-        return ResponseEntity.status(201).body(service.salvar(dto));
+    public ResponseEntity<UsuarioResponse> criar(@RequestBody @Valid UsuarioRequest request) {
+        return ResponseEntity.status(201).body(service.salvar(request));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<UsuarioResponse> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarId(id));
     }
-    @GetMapping("/login")
-    public ResponseEntity<Usuario> login(
-            @RequestParam String email,
-            @RequestParam String senha
+
+    @PostMapping("/login")
+    public ResponseEntity<UsuarioResponse> login(
+            @RequestBody UsuarioRequest request
     ) {
-        Usuario usuario = service.buscarPorEmailESenha(email, senha);
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.ok(
+                service.buscarPorEmailESenha(request.getEmail(), request.getSenha())
+        );
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> atualizar(
+    public ResponseEntity<UsuarioResponse> atualizar(
             @PathVariable Long id,
-            @RequestBody @Valid UsuarioDTO dto
+            @RequestBody @Valid UsuarioRequest request
     ) {
-        return ResponseEntity.ok(service.atualizar(id, dto));
+        return ResponseEntity.ok(service.atualizar(id, request));
     }
 
     @DeleteMapping("/{id}")

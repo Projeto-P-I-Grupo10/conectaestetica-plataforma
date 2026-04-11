@@ -1,10 +1,12 @@
 package school.sptech.cursos.service;
 
 import org.springframework.stereotype.Service;
-import school.sptech.cursos.DTO.UsuarioDTO;
+import school.sptech.cursos.DTO.Usuario.UsuarioRequest;
+import school.sptech.cursos.DTO.Usuario.UsuarioResponse;
 import school.sptech.cursos.model.Usuario;
 import school.sptech.cursos.repository.IUsuarioRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,49 +17,114 @@ public class UsuarioService {
         this.repository = repository;
     }
 
-    public List<Usuario> listar() {
-        return repository.findAll();
+    public List<UsuarioResponse> listar() {
+        List<Usuario> usuarios = repository.findAll();
+        List<UsuarioResponse> resposta = new ArrayList<>();
+
+        for (Usuario usuario : usuarios) {
+            UsuarioResponse response = new UsuarioResponse();
+
+            response.setId(usuario.getId());
+            response.setNome(usuario.getNome());
+            response.setEmail(usuario.getEmail());
+            response.setTelefone(usuario.getTelefone());
+            response.setTipoUsuario(usuario.getTipoUsuario());
+
+            resposta.add(response);
+        }
+
+        return resposta;
     }
 
-    public Usuario salvar(UsuarioDTO dto) {
+    public UsuarioResponse salvar(UsuarioRequest request) {
         Usuario usuario = new Usuario();
 
-        if (repository.existsByEmail(dto.getEmail())) {
+        if (repository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email já cadastrado");
         }
-        if (repository.existsByTelefone(dto.getTelefone())) {
+        if (repository.existsByTelefone(request.getTelefone())) {
             throw new RuntimeException("Telefone já cadastrado");
         }
-        usuario.setNome(dto.getNome());
-        usuario.setEmail(dto.getEmail());
-        usuario.setSenha(dto.getSenha());
-        usuario.setTelefone(dto.getTelefone());
-        usuario.setTipo_usuario(dto.getTipo_usuario());
+        usuario.setNome(request.getNome());
+        usuario.setEmail(request.getEmail());
+        usuario.setSenha(request.getSenha());
+        usuario.setTelefone(request.getTelefone());
+        usuario.setTipoUsuario(request.getTipoUsuario());
+        usuario = repository.save(usuario);
 
-        return repository.save(usuario);
+        UsuarioResponse response = new UsuarioResponse();
+        response.setId(usuario.getId());
+        response.setNome(usuario.getNome());
+        response.setEmail(usuario.getEmail());
+        response.setTelefone(usuario.getTelefone());
+        response.setTipoUsuario(usuario.getTipoUsuario());
+
+        return response;
     }
 
-    public Usuario buscarId(Long id) {
-        return repository.findById(id)
+    public UsuarioResponse buscarId(Long id) {
+        Usuario usuario = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        UsuarioResponse response = new UsuarioResponse();
+        response.setId(usuario.getId());
+        response.setNome(usuario.getNome());
+        response.setEmail(usuario.getEmail());
+        response.setTelefone(usuario.getTelefone());
+        response.setTipoUsuario(usuario.getTipoUsuario());
+
+        return response;
+
     }
 
-    public Usuario buscarPorEmailESenha(String email, String senha) {
-        return repository.findByEmailAndSenha(email, senha)
+    public UsuarioResponse buscarPorEmailESenha(String email, String senha) {
+        Usuario usuario = repository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Email ou senha inválidos"));
+
+        if (!senha.equals(usuario.getSenha())) {
+            throw new RuntimeException("Email ou senha inválidos");
+        }
+
+        UsuarioResponse response = new UsuarioResponse();
+        response.setId(usuario.getId());
+        response.setNome(usuario.getNome());
+        response.setEmail(usuario.getEmail());
+        response.setTelefone(usuario.getTelefone());
+        response.setTipoUsuario(usuario.getTipoUsuario());
+
+        return response;
     }
 
-    public Usuario atualizar(Long id, UsuarioDTO dto) {
-        Usuario usuario = buscarId(id);
+    public UsuarioResponse atualizar(Long id, UsuarioRequest request) {
+        Usuario usuario = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario inválido"));
 
+        if (!usuario.getEmail().equals(request.getEmail()) &&
+                repository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email já cadastrado");
+        }
 
-        usuario.setNome(dto.getNome());
-        usuario.setEmail(dto.getEmail());
-        usuario.setSenha(dto.getSenha());
-        usuario.setTelefone(dto.getTelefone());
-        usuario.setTipo_usuario(dto.getTipo_usuario());
+        if (!usuario.getTelefone().equals(request.getTelefone()) &&
+                repository.existsByTelefone(request.getTelefone())) {
+            throw new RuntimeException("Telefone já cadastrado");
+        }
 
-        return repository.save(usuario);
+        usuario.setNome(request.getNome());
+        usuario.setEmail(request.getEmail());
+        usuario.setSenha(request.getSenha()); // tem qu cripitografar -> passar pr ocaiobaaa ou henry
+        usuario.setTelefone(request.getTelefone());
+        usuario.setTipoUsuario(request.getTipoUsuario());
+
+        usuario = repository.save(usuario);
+
+        UsuarioResponse response = new UsuarioResponse();
+        response.setId(usuario.getId());
+        response.setNome(usuario.getNome());
+        response.setEmail(usuario.getEmail());
+        response.setTelefone(usuario.getTelefone());
+        response.setTipoUsuario(usuario.getTipoUsuario());
+
+        return response;
     }
 
     public void deletarPorID(Long id) {

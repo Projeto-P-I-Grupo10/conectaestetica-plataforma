@@ -1,33 +1,16 @@
-package school.sptech.cursos.model;
+package school.sptech.cursos.DTO.Usuario;
 
-import jakarta.persistence.*;
 import school.sptech.cursos.enums.UsuarioEnum;
 
-@Entity
-@Table(name = "usuario")
-public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UsuarioResponse {
+
     private Long id;
     private String nome;
-    @Column(unique = true)
     private String email;
-    private String senha;
     private String telefone;
-    @Enumerated(EnumType.STRING)
     private UsuarioEnum tipoUsuario;
 
-    public Usuario() {
-    }
-
-    public Usuario(Long id, String nome, String email, String senha, String telefone, UsuarioEnum tipo_usuario) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.telefone = telefone;
-        this.tipoUsuario = tipo_usuario;
-    }
+    // getters e setters
 
     public Long getId() {
         return id;
@@ -51,14 +34,6 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getTelefone() {
