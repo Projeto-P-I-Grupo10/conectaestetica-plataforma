@@ -1,18 +1,27 @@
 package school.sptech.cursos.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import school.sptech.cursos.DTO.Usuario.UsuarioRequest;
-import school.sptech.cursos.DTO.Usuario.UsuarioResponse;
+import school.sptech.cursos.DTO.Usuario.*;
 import school.sptech.cursos.service.UsuarioService;
 
+import java.time.Duration;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
+
+    public static final String COOKIE_NOME = "authToken";
+
+    @Value("${jwt.validity}")
+    private long jwtValidity;
     private final UsuarioService service;
 
     public UsuarioController(UsuarioService service) {
@@ -35,12 +44,45 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UsuarioResponse> login(
-            @RequestBody UsuarioRequest request
+    public ResponseEntity<UsuarioToken> login(
+            @RequestBody UsuarioLoginRequest request,
+            HttpServletResponse response
     ) {
-        return ResponseEntity.ok(
-                service.buscarPorEmailESenha(request.getEmail(), request.getSenha())
-        );
+
+        UsuarioToken autenticado = service.autenticar(request.getEmail(), request.getSenha());
+
+        ResponseCookie cookie = ResponseCookie.from(COOKIE_NOME, autenticado.getToken())
+                .httpOnly(true)
+                .secure(false)
+                .sameSite("Strict")
+                .path("/")
+                .maxAge(Duration.ofSeconds(jwtValidity))
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+
+        UsuarioToken sessao = new UsuarioToken();
+        sessao.setId(autenticado.getId());
+        sessao.setNome(autenticado.getNome());
+        sessao.setEmail(autenticado.getEmail());
+        sessao.setToken(autenticado.getToken());
+
+
+        return ResponseEntity.ok(sessao);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from(COOKIE_NOME, "")
+                .httpOnly(true)
+                .secure(false)
+                .sameSite("Strict")
+                .path("/")
+                .maxAge(0) // apaga cookie
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        return ResponseEntity.noContent().build();
     }
 
 

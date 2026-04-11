@@ -1,4 +1,4 @@
-package school.sptech.cursos.CorsConfig;
+package school.sptech.cursos.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
