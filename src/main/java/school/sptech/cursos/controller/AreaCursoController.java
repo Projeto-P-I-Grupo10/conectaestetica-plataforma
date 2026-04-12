@@ -4,9 +4,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import school.sptech.cursos.DTO.AreaCursoRequest;
-import school.sptech.cursos.DTO.AreaCursoResponse;
-import school.sptech.cursos.model.AreaCurso;
+import school.sptech.cursos.DTO.Area.AreaCursoRequest;
+import school.sptech.cursos.DTO.Area.AreaCursoResponse;
 import school.sptech.cursos.service.AreaCursoService;
 
 import java.util.List;

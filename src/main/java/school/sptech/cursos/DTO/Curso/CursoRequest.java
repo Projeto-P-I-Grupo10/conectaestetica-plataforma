@@ -1,7 +1,10 @@
-package school.sptech.cursos.DTO;
+package school.sptech.cursos.DTO.Curso;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import school.sptech.cursos.DTO.Area.AreaCursoRequest;
+import school.sptech.cursos.DTO.EnderecoCurso.EnderecoCursoRequest;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

@@ -3,6 +3,9 @@ package school.sptech.cursos.model;
 import jakarta.persistence.*;
 import school.sptech.cursos.enums.UsuarioEnum;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -18,16 +21,20 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private UsuarioEnum tipoUsuario;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<HistoricoEnderecoUsuario> endereco = new ArrayList<>();
+
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String email, String senha, String telefone, UsuarioEnum tipo_usuario) {
+    public Usuario(Long id, String nome, String email, String senha, String telefone, UsuarioEnum tipoUsuario, List<HistoricoEnderecoUsuario> endereco) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
-        this.tipoUsuario = tipo_usuario;
+        this.tipoUsuario = tipoUsuario;
+        this.endereco = endereco;
     }
 
     public Long getId() {
@@ -76,5 +83,13 @@ public class Usuario {
 
     public void setTipoUsuario(UsuarioEnum tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public List<HistoricoEnderecoUsuario> getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(List<HistoricoEnderecoUsuario> endereco) {
+        this.endereco = endereco;
     }
 }

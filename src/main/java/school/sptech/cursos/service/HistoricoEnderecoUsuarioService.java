@@ -1,6 +1,7 @@
 package school.sptech.cursos.service;
 
 import org.springframework.stereotype.Service;
+import school.sptech.cursos.DTO.HistoricoEnderecoUsuario.HistoricoEnderecoUsuarioCreateRequest;
 import school.sptech.cursos.DTO.HistoricoEnderecoUsuario.HistoricoEnderecoUsuarioRequest;
 import school.sptech.cursos.DTO.HistoricoEnderecoUsuario.HistoricoEnderecoUsuarioResponse;
 import school.sptech.cursos.model.HistoricoEnderecoUsuario;
@@ -21,7 +22,7 @@ public class HistoricoEnderecoUsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public HistoricoEnderecoUsuarioResponse salvar(HistoricoEnderecoUsuarioRequest request) {
+    public HistoricoEnderecoUsuarioResponse salvar(HistoricoEnderecoUsuarioCreateRequest request) {
         Usuario usuario = usuarioRepository.findById(request.getUsuarioId())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         HistoricoEnderecoUsuario historico = new HistoricoEnderecoUsuario();

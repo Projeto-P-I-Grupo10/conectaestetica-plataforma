@@ -9,12 +9,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.cursos.Config.GerenciadorTokenJwt;
+import school.sptech.cursos.DTO.HistoricoEnderecoUsuario.HistoricoEnderecoUsuarioRequest;
 import school.sptech.cursos.DTO.Usuario.UsuarioRequest;
 import school.sptech.cursos.DTO.Usuario.UsuarioResponse;
 import school.sptech.cursos.DTO.Usuario.UsuarioToken;
+import school.sptech.cursos.model.HistoricoEnderecoUsuario;
 import school.sptech.cursos.model.Usuario;
 import school.sptech.cursos.repository.IUsuarioRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +72,30 @@ public class UsuarioService {
         usuario.setSenha(senhaCriptografada);
         usuario.setTelefone(request.getTelefone());
         usuario.setTipoUsuario(request.getTipoUsuario());
+
+        List<HistoricoEnderecoUsuario> lista = new ArrayList<>();
+
+
+        if (request.getEndereco() != null) {
+            for (HistoricoEnderecoUsuarioRequest endReq : request.getEndereco()) {
+
+                HistoricoEnderecoUsuario end = new HistoricoEnderecoUsuario();
+                end.setCep(endReq.getCep());
+                end.setNumero(endReq.getNumero());
+                end.setUf(endReq.getUf());
+                end.setRua(endReq.getRua());
+                end.setCidade(endReq.getCidade());
+                end.setComplemento(endReq.getComplemento());
+                end.setDataPesquisa(LocalDateTime.now());
+
+                end.setUsuario(usuario);
+
+                lista.add(end);
+            }
+        }
+
+        usuario.setEndereco(lista);
+
         usuario = repository.save(usuario);
 
         UsuarioResponse response = new UsuarioResponse();

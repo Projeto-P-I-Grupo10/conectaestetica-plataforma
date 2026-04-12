@@ -4,8 +4,7 @@ import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 
-public class HistoricoEnderecoUsuarioRequest {
-
+public class HistoricoEnderecoUsuarioCreateRequest {
     @NotBlank(message = "CEP é obrigatório")
     @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP deve estar no formato NNNNN-NNN")
     private String cep;
@@ -24,6 +23,9 @@ public class HistoricoEnderecoUsuarioRequest {
     @Size(max = 100, message = "Complemento deve ter no máximo 100 caracteres")
     private String complemento;
     @NotNull(message = "UsuarioId é obrigatório")
+    @Positive(message = "UsuarioId deve ser positivo")
+    private Long usuarioId;
+    private LocalDateTime dataPesquisa;
 
     public String getCep() {
         return cep;
@@ -73,4 +75,19 @@ public class HistoricoEnderecoUsuarioRequest {
         this.complemento = complemento;
     }
 
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public LocalDateTime getDataPesquisa() {
+        return dataPesquisa;
+    }
+
+    public void setDataPesquisa(LocalDateTime dataPesquisa) {
+        this.dataPesquisa = dataPesquisa;
+    }
 }

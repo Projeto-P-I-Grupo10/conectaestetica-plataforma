@@ -1,5 +1,7 @@
-package school.sptech.cursos.DTO;
+package school.sptech.cursos.DTO.Curso;
 
+import school.sptech.cursos.DTO.Area.AreaCursoResponse;
+import school.sptech.cursos.DTO.EnderecoCurso.EnderecoCursoResponse;
 import school.sptech.cursos.model.Curso;
 
 import java.math.BigDecimal;

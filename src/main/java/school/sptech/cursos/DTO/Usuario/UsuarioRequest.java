@@ -1,7 +1,12 @@
 package school.sptech.cursos.DTO.Usuario;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import school.sptech.cursos.DTO.HistoricoEnderecoUsuario.HistoricoEnderecoUsuarioRequest;
 import school.sptech.cursos.enums.UsuarioEnum;
+import school.sptech.cursos.model.HistoricoEnderecoUsuario;
+
+import java.util.List;
 
 public class UsuarioRequest {
 
@@ -28,6 +33,10 @@ public class UsuarioRequest {
 
     @NotNull(message = "Tipo de usuário é obrigatório")
     private UsuarioEnum tipoUsuario;
+
+    @Valid
+    private List<HistoricoEnderecoUsuarioRequest> endereco;
+
 
     public String getNome() {
         return nome;
@@ -67,5 +76,13 @@ public class UsuarioRequest {
 
     public void setTipoUsuario(UsuarioEnum tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public List<HistoricoEnderecoUsuarioRequest> getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(List<HistoricoEnderecoUsuarioRequest> endereco) {
+        this.endereco = endereco;
     }
 }

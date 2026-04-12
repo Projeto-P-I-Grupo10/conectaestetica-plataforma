@@ -17,6 +17,7 @@ public class HistoricoEnderecoUsuario {
     private String cidade;
     private String complemento;
     private LocalDateTime dataPesquisa;
+
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
