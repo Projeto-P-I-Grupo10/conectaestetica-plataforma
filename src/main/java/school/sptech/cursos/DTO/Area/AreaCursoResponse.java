@@ -1,7 +1,6 @@
-package school.sptech.cursos.DTO;
+package school.sptech.cursos.DTO.Area;
 
 import school.sptech.cursos.model.AreaCurso;
-import school.sptech.cursos.model.EnderecoCurso;
 
 public class AreaCursoResponse {
 

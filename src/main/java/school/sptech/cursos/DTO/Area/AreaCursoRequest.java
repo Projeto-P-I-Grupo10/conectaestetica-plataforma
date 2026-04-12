@@ -1,4 +1,4 @@
-package school.sptech.cursos.DTO;
+package school.sptech.cursos.DTO.Area;
 
 import jakarta.validation.constraints.NotBlank;
 

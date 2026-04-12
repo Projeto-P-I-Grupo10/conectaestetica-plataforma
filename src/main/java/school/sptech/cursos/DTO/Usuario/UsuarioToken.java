@@ -1,41 +1,16 @@
-package school.sptech.cursos.model;
+package school.sptech.cursos.DTO.Usuario;
 
-import jakarta.persistence.*;
 import school.sptech.cursos.enums.UsuarioEnum;
 
-import java.util.ArrayList;
-import java.util.List;
+public class UsuarioToken {
 
-@Entity
-@Table(name = "usuario")
-public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    @Column(unique = true)
     private String email;
     private String senha;
-    @Column(unique = true)
     private String telefone;
-    @Enumerated(EnumType.STRING)
     private UsuarioEnum tipoUsuario;
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<HistoricoEnderecoUsuario> endereco = new ArrayList<>();
-
-    public Usuario() {
-    }
-
-    public Usuario(Long id, String nome, String email, String senha, String telefone, UsuarioEnum tipoUsuario, List<HistoricoEnderecoUsuario> endereco) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.telefone = telefone;
-        this.tipoUsuario = tipoUsuario;
-        this.endereco = endereco;
-    }
+    private String token;
 
     public Long getId() {
         return id;
@@ -85,11 +60,11 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public List<HistoricoEnderecoUsuario> getEndereco() {
-        return endereco;
+    public String getToken() {
+        return token;
     }
 
-    public void setEndereco(List<HistoricoEnderecoUsuario> endereco) {
-        this.endereco = endereco;
+    public void setToken(String token) {
+        this.token = token;
     }
 }

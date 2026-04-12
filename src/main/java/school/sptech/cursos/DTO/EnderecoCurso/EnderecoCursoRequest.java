@@ -1,38 +1,24 @@
-package school.sptech.cursos.DTO;
+package school.sptech.cursos.DTO.EnderecoCurso;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import school.sptech.cursos.model.EnderecoCurso;
 
-public class EnderecoCursoResponse {
+public class EnderecoCursoRequest {
 
-    private Long id;
+    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP deve estar no formato NNNNN-NNN")
     private String cep;
+    @NotBlank(message = "Rua é obrigatória")
     private String rua;
+    @NotBlank(message = "Bairro é obrigatório")
     private String bairro;
+    @NotBlank(message = "Número é obrigatório")
     private String numero;
+    @NotBlank(message = "Complemento é obrigatório")
     private String complemento;
+    @NotBlank(message = "Cidade é obrigatório")
     private String cidade;
+    @NotBlank(message = "Estado é obrigatório")
     private String estado;
-
-    public EnderecoCursoResponse(EnderecoCurso endereco) {
-        this.id = endereco.getId();
-        this.rua = endereco.getRua();
-        this.cidade = endereco.getCidade();
-        this.estado = endereco.getEstado();
-        this.cep = endereco.getCep();
-        this.numero = endereco.getNumero();
-        this.complemento = endereco.getComplemento();
-        this.bairro = endereco.getBairro();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCep() {
         return cep;
