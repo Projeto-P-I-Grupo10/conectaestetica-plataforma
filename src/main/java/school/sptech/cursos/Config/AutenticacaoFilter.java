@@ -112,4 +112,10 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
                 || ("/usuarios/login".equals(path) && "POST".equalsIgnoreCase(method));
     }
 
+//    @Override
+//    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+//        return true; // ignora todas as requisições para testar aqui
+//    }
+
+
 }

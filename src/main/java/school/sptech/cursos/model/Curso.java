@@ -21,8 +21,6 @@ public class Curso {
 
     private LocalDateTime dataEncerramento;
 
-    private String professor;
-
     private BigDecimal preco;
 
     private Integer qtdVagas;
@@ -36,6 +34,10 @@ public class Curso {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private EnderecoCurso endereco;
+
+    @ManyToOne
+    @JoinColumn(name = "professor_id", referencedColumnName = "id")
+    private Professor professor;
 
     public Long getId() {
         return id;
@@ -77,11 +79,11 @@ public class Curso {
         this.dataEncerramento = dataEncerramento;
     }
 
-    public String getProfessor() {
+    public Professor getProfessor() {
         return professor;
     }
 
-    public void setProfessor(String professor) {
+    public void setProfessor(Professor professor) {
         this.professor = professor;
     }
 

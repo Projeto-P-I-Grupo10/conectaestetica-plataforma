@@ -2,6 +2,7 @@ package school.sptech.cursos.DTO.Curso;
 
 import school.sptech.cursos.DTO.Area.AreaCursoResponse;
 import school.sptech.cursos.DTO.EnderecoCurso.EnderecoCursoResponse;
+import school.sptech.cursos.DTO.Professor.ProfessorResponse;
 import school.sptech.cursos.model.Curso;
 
 import java.math.BigDecimal;
@@ -14,12 +15,12 @@ public class CursoResponse {
     private String descricao;
     private LocalDateTime dataInicio;
     private LocalDateTime dataEncerramento;
-    private String professor;
     private BigDecimal preco;
     private Integer qtdVagas;
     private Boolean cursoIniciado;
     private AreaCursoResponse area;
     private EnderecoCursoResponse endereco;
+    private ProfessorResponse professor;
 
     public CursoResponse(Curso curso) {
         this.id = curso.getId();
@@ -69,11 +70,11 @@ public class CursoResponse {
         this.dataEncerramento = dataEncerramento;
     }
 
-    public String getProfessor() {
+    public ProfessorResponse getProfessor() {
         return professor;
     }
 
-    public void setProfessor(String professor) {
+    public void setProfessor(ProfessorResponse professor) {
         this.professor = professor;
     }
 

@@ -6,11 +6,14 @@ import school.sptech.cursos.DTO.Area.AreaCursoResponse;
 import school.sptech.cursos.DTO.Curso.CursoRequest;
 import school.sptech.cursos.DTO.Curso.CursoResponse;
 import school.sptech.cursos.DTO.EnderecoCurso.EnderecoCursoResponse;
+import school.sptech.cursos.DTO.Professor.ProfessorResponse;
 import school.sptech.cursos.model.AreaCurso;
 import school.sptech.cursos.model.Curso;
 import school.sptech.cursos.model.EnderecoCurso;
+import school.sptech.cursos.model.Professor;
 import school.sptech.cursos.repository.IAreaCursoRepository;
 import school.sptech.cursos.repository.ICursoRepository;
+import school.sptech.cursos.repository.IProfessorRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +22,11 @@ import java.util.List;
 public class CursoService {
     private final ICursoRepository repository;
     private final IAreaCursoRepository repositoryArea;
-
-    public CursoService(ICursoRepository repository, IAreaCursoRepository repositoryArea) {
+    private final IProfessorRepository repositoryProfessor;
+    public CursoService(ICursoRepository repository, IAreaCursoRepository repositoryArea, IProfessorRepository repositoryProfessor) {
         this.repository = repository;
         this.repositoryArea = repositoryArea;
+        this.repositoryProfessor = repositoryProfessor;
     }
 
     public List<CursoResponse> listarCursos()
@@ -35,12 +39,18 @@ public class CursoService {
             AreaCurso area = this.repositoryArea.findByNome(curso.getArea().getNome())
                     .orElseThrow(() -> new EntityNotFoundException("nome da Área não encontrada"));
             EnderecoCursoResponse enderecoResponse = new EnderecoCursoResponse(curso.getEndereco());
+
+            // Busca professor pelo id
+            Professor professor = this.repositoryProfessor.findById(curso.getProfessor().getId())
+                    .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
+
             AreaCursoResponse areaCursoResponse = new AreaCursoResponse(area);
+            ProfessorResponse professorResponse = new ProfessorResponse(professor);
             CursoResponse cursoResponse = new CursoResponse(curso);
             cursoResponse.setDescricao(curso.getDescricao());
             cursoResponse.setDataInicio(curso.getDataInicio());
             cursoResponse.setDataEncerramento(curso.getDataEncerramento());
-            cursoResponse.setProfessor(curso.getProfessor());
+            cursoResponse.setProfessor(professorResponse);
             cursoResponse.setPreco(curso.getPreco());
             cursoResponse.setQtdVagas(curso.getQtdVagas());
             cursoResponse.setCursoIniciado(curso.getCursoIniciado());
@@ -54,6 +64,10 @@ public class CursoService {
     public CursoResponse adicionarCurso(CursoRequest request) {
         AreaCurso area = this.repositoryArea.findByNome(request.getAreaCurso().getNome())
                 .orElseThrow(() -> new EntityNotFoundException("nome da Área não encontrada"));
+
+        // Busca professor pelo id
+        Professor professor = this.repositoryProfessor.findById(request.getProfessorId())
+                .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
 
         EnderecoCurso endereco = new EnderecoCurso();
         endereco.setRua(request.getEndereco().getRua());
@@ -69,7 +83,7 @@ public class CursoService {
         curso.setDescricao(request.getDescricao());
         curso.setDataInicio(request.getDataInicio());
         curso.setDataEncerramento(request.getDataEncerramento());
-        curso.setProfessor(request.getProfessor());
+        curso.setProfessor(professor);
         curso.setPreco(request.getPreco());
         curso.setQtdVagas(request.getQtdVagas());
         curso.setCursoIniciado(request.getCursoIniciado());
@@ -80,12 +94,13 @@ public class CursoService {
 
         EnderecoCursoResponse enderecoResponse = new EnderecoCursoResponse(curso.getEndereco());
         AreaCursoResponse areaCursoResponse = new AreaCursoResponse(area);
+        ProfessorResponse professorResponse = new ProfessorResponse(professor);
         CursoResponse cursoResponse = new CursoResponse(curso);
         cursoResponse.setNome(request.getNome());
         cursoResponse.setDescricao(request.getDescricao());
         cursoResponse.setDataInicio(request.getDataInicio());
         cursoResponse.setDataEncerramento(request.getDataEncerramento());
-        cursoResponse.setProfessor(request.getProfessor());
+        cursoResponse.setProfessor(professorResponse);
         cursoResponse.setPreco(request.getPreco());
         cursoResponse.setQtdVagas(request.getQtdVagas());
         cursoResponse.setCursoIniciado(request.getCursoIniciado());
@@ -105,6 +120,10 @@ public class CursoService {
         AreaCurso area = this.repositoryArea.findByNome(request.getAreaCurso().getNome())
                 .orElseThrow(() -> new EntityNotFoundException("Nome da área não encontrada"));
 
+        // Busca professor pelo id
+        Professor professor = this.repositoryProfessor.findById(request.getProfessorId())
+                .orElseThrow(() -> new EntityNotFoundException("Professor não encontrado"));
+
         // Atualiza endereço
         EnderecoCurso endereco = new EnderecoCurso();
         endereco.setRua(request.getEndereco().getRua());
@@ -120,7 +139,7 @@ public class CursoService {
         curso.setDescricao(request.getDescricao());
         curso.setDataInicio(request.getDataInicio());
         curso.setDataEncerramento(request.getDataEncerramento());
-        curso.setProfessor(request.getProfessor());
+        curso.setProfessor(professor);
         curso.setPreco(request.getPreco());
         curso.setQtdVagas(request.getQtdVagas());
         curso.setCursoIniciado(request.getCursoIniciado());
@@ -133,6 +152,7 @@ public class CursoService {
         // Monta o response manualmente
         EnderecoCursoResponse enderecoResponse = new EnderecoCursoResponse(curso.getEndereco());
         AreaCursoResponse areaCursoResponse = new AreaCursoResponse(curso.getArea());
+        ProfessorResponse professorResponse = new ProfessorResponse(professor);
 
         CursoResponse cursoResponse = new CursoResponse(curso);
         cursoResponse.setId(curso.getId());
@@ -140,7 +160,7 @@ public class CursoService {
         cursoResponse.setDescricao(curso.getDescricao());
         cursoResponse.setDataInicio(curso.getDataInicio());
         cursoResponse.setDataEncerramento(curso.getDataEncerramento());
-        cursoResponse.setProfessor(curso.getProfessor());
+        cursoResponse.setProfessor(professorResponse);
         cursoResponse.setPreco(curso.getPreco());
         cursoResponse.setQtdVagas(curso.getQtdVagas());
         cursoResponse.setCursoIniciado(curso.getCursoIniciado());
