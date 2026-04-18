@@ -107,7 +107,7 @@ public class SecurityConfiguracao {
 //                        .anyRequest().permitAll() // libera todas as requisições
 //                );
 //        return http.build();
-//    }// ignora todas as requisições para testar aqui
+//    } // ignora todas as requisições para testar aqui
 
 
     @Bean
