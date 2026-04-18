@@ -99,6 +99,16 @@ public class SecurityConfiguracao {
 
     }
 
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(auth -> auth
+//                        .anyRequest().permitAll() // libera todas as requisições
+//                );
+//        return http.build();
+//    }// ignora todas as requisições para testar aqui
+
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {

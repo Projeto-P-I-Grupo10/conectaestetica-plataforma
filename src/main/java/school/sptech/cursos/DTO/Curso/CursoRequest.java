@@ -20,8 +20,6 @@ public class CursoRequest {
     @NotNull(message = "Data de encerramento é obrigatória")
     @Future(message = "Data de encerramento deve ser no futuro")
     private LocalDateTime dataEncerramento;
-    @NotBlank(message = "Professor é obrigatório")
-    private String professor;
     @Positive(message = "O preco deve ser maior que zero")
     private BigDecimal preco;
     @Positive(message = "quantidade de vagas deve ser maior zero")
@@ -34,6 +32,8 @@ public class CursoRequest {
     private AreaCursoRequest areaCurso;
     @Valid
     private EnderecoCursoRequest endereco;
+    @NotNull
+    private Long professorId;
 
     public String getNome() {
         return nome;
@@ -65,14 +65,6 @@ public class CursoRequest {
 
     public void setDataEncerramento(LocalDateTime dataEncerramento) {
         this.dataEncerramento = dataEncerramento;
-    }
-
-    public String getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(String professor) {
-        this.professor = professor;
     }
 
     public BigDecimal getPreco() {
@@ -113,5 +105,13 @@ public class CursoRequest {
 
     public void setEndereco(EnderecoCursoRequest endereco) {
         this.endereco = endereco;
+    }
+
+    public Long getProfessorId() {
+        return professorId;
+    }
+
+    public void setProfessorId(Long professorId) {
+        this.professorId = professorId;
     }
 }
