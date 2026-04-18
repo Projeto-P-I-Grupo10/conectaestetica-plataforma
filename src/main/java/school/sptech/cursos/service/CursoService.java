@@ -61,6 +61,30 @@ public class CursoService {
         return cursosResponse;
     }
 
+    public CursoResponse buscarPorId(Long id) {
+        Curso curso = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado com id: " + id));
+
+        AreaCursoResponse areaResponse = new AreaCursoResponse(curso.getArea());
+        EnderecoCursoResponse enderecoResponse = new EnderecoCursoResponse(curso.getEndereco());
+        ProfessorResponse professorResponse = new ProfessorResponse(curso.getProfessor());
+
+        CursoResponse response = new CursoResponse(curso);
+        response.setId(curso.getId());
+        response.setNome(curso.getNome());
+        response.setDescricao(curso.getDescricao());
+        response.setDataInicio(curso.getDataInicio());
+        response.setDataEncerramento(curso.getDataEncerramento());
+        response.setPreco(curso.getPreco());
+        response.setQtdVagas(curso.getQtdVagas());
+        response.setCursoIniciado(curso.getCursoIniciado());
+        response.setArea(areaResponse);
+        response.setEndereco(enderecoResponse);
+        response.setProfessor(professorResponse);
+
+        return response;
+    }
+
     public CursoResponse adicionarCurso(CursoRequest request) {
         AreaCurso area = this.repositoryArea.findByNome(request.getAreaCurso().getNome())
                 .orElseThrow(() -> new EntityNotFoundException("nome da Área não encontrada"));
