@@ -1,5 +1,6 @@
 package school.sptech.cursos.DTO.Curso;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import school.sptech.cursos.DTO.Area.AreaCursoResponse;
 import school.sptech.cursos.DTO.EnderecoCurso.EnderecoCursoResponse;
 import school.sptech.cursos.DTO.Professor.ProfessorResponse;
@@ -8,6 +9,19 @@ import school.sptech.cursos.model.Curso;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@JsonPropertyOrder({
+        "id",
+        "nome",
+        "descricao",
+        "preco",
+        "cursoIniciado",
+        "dataInicio",
+        "dataEncerramento",
+        "qtdVagas",
+        "area",
+        "professor",
+        "endereco"
+})
 public class CursoResponse {
 
     private Long id;
@@ -26,8 +40,14 @@ public class CursoResponse {
         this.id = curso.getId();
         this.nome = curso.getNome();
         this.descricao = curso.getDescricao();
-        this.endereco = new EnderecoCursoResponse(curso.getEndereco());
+        this.dataInicio = curso.getDataInicio();
+        this.dataEncerramento = curso.getDataEncerramento();
+        this.preco = curso.getPreco();
+        this.qtdVagas = curso.getQtdVagas();
+        this.cursoIniciado = curso.getCursoIniciado();
         this.area = new AreaCursoResponse(curso.getArea());
+        this.endereco = new EnderecoCursoResponse(curso.getEndereco());
+        this.professor = new ProfessorResponse(curso.getProfessor());
     }
 
     public Long getId() {
