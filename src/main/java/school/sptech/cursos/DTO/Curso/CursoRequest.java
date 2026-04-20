@@ -28,6 +28,7 @@ public class CursoRequest {
     private Integer qtdVagas;
     @NotNull
     private Boolean cursoIniciado;
+    private String imagem;
     @Valid
     private AreaCursoRequest areaCurso;
     @Valid
@@ -93,6 +94,14 @@ public class CursoRequest {
 
     public AreaCursoRequest getAreaCurso() {
         return areaCurso;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
     public void setAreaCurso(AreaCursoRequest areaCurso) {

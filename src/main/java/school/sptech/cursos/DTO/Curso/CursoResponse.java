@@ -32,6 +32,7 @@ public class CursoResponse {
     private BigDecimal preco;
     private Integer qtdVagas;
     private Boolean cursoIniciado;
+    private String imagem;
     private AreaCursoResponse area;
     private EnderecoCursoResponse endereco;
     private ProfessorResponse professor;
@@ -45,6 +46,7 @@ public class CursoResponse {
         this.preco = curso.getPreco();
         this.qtdVagas = curso.getQtdVagas();
         this.cursoIniciado = curso.getCursoIniciado();
+        this.imagem = curso.getImagem();
         this.area = new AreaCursoResponse(curso.getArea());
         this.endereco = new EnderecoCursoResponse(curso.getEndereco());
         this.professor = new ProfessorResponse(curso.getProfessor());
@@ -120,6 +122,14 @@ public class CursoResponse {
 
     public void setCursoIniciado(Boolean cursoIniciado) {
         this.cursoIniciado = cursoIniciado;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
     public AreaCursoResponse getArea() {

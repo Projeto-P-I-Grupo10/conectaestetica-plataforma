@@ -92,6 +92,7 @@ public class CursoService {
         curso.setDataEncerramento(request.getDataEncerramento());
         curso.setProfessor(professor);
         curso.setPreco(request.getPreco());
+        curso.setImagem(request.getImagem());
         curso.setQtdVagas(request.getQtdVagas());
         curso.setCursoIniciado(request.getCursoIniciado());
         curso.setArea(area);
