@@ -27,6 +27,8 @@ public class Curso {
 
     private Boolean cursoIniciado;
 
+    private String imagem;
+
     @ManyToOne
     @JoinColumn(name = "area_id", referencedColumnName = "id")
     private AreaCurso area;
@@ -109,6 +111,14 @@ public class Curso {
 
     public void setCursoIniciado(Boolean cursoIniciado) {
         this.cursoIniciado = cursoIniciado;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
     public AreaCurso getArea() {
