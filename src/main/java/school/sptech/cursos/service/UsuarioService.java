@@ -1,5 +1,6 @@
 package school.sptech.cursos.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -110,7 +111,7 @@ public class UsuarioService {
 
     public UsuarioResponse buscarId(Long id) {
         Usuario usuario = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
         UsuarioResponse response = new UsuarioResponse();
         response.setId(usuario.getId());
@@ -178,7 +179,7 @@ public class UsuarioService {
 
     public void deletarPorID(Long id) {
         if (!repository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado");
+            throw new EntityNotFoundException("Usuário não encontrado");
         }
         repository.deleteById(id);
     }
