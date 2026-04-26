@@ -17,15 +17,19 @@ public class AutenticacaoEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException, ServletException {
+                         AuthenticationException authException) throws IOException {
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
         if (authException instanceof BadCredentialsException
                 || authException instanceof InsufficientAuthenticationException) {
-            // 401: credenciais inválidas ou ausentes (sem token JWT no header)
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("{\"error\":\"Token JWT inválido ou ausente\"}");
         } else {
-            // 403: autenticado, mas sem permissão suficiente para o recurso
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().write("{\"error\":\"Acesso negado: permissões insuficientes\"}");
         }
     }
+
 }
