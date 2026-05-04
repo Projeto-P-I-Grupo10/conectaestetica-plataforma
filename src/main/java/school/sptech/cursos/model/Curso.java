@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Curso {
@@ -17,25 +18,11 @@ public class Curso {
     @Column(length = 1000)
     private String descricao;
 
-    private LocalDateTime dataInicio;
-
-    private LocalDateTime dataEncerramento;
-
-    private BigDecimal preco;
-
-    private Integer qtdVagas;
-
-    private Boolean cursoIniciado;
-
     private String imagem;
 
     @ManyToOne
     @JoinColumn(name = "area_id", referencedColumnName = "id")
     private AreaCurso area;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private EnderecoCurso endereco;
 
     @ManyToOne
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
@@ -65,54 +52,6 @@ public class Curso {
         this.descricao = descricao;
     }
 
-    public LocalDateTime getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(LocalDateTime dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public LocalDateTime getDataEncerramento() {
-        return dataEncerramento;
-    }
-
-    public void setDataEncerramento(LocalDateTime dataEncerramento) {
-        this.dataEncerramento = dataEncerramento;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public BigDecimal getPreco() {
-        return preco;
-    }
-
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
-
-    public Integer getQtdVagas() {
-        return qtdVagas;
-    }
-
-    public void setQtdVagas(Integer qtdVagas) {
-        this.qtdVagas = qtdVagas;
-    }
-
-    public Boolean getCursoIniciado() {
-        return cursoIniciado;
-    }
-
-    public void setCursoIniciado(Boolean cursoIniciado) {
-        this.cursoIniciado = cursoIniciado;
-    }
-
     public String getImagem() {
         return imagem;
     }
@@ -129,11 +68,11 @@ public class Curso {
         this.area = area;
     }
 
-    public EnderecoCurso getEndereco() {
-        return endereco;
+    public Professor getProfessor() {
+        return professor;
     }
 
-    public void setEndereco(EnderecoCurso endereco) {
-        this.endereco = endereco;
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 }

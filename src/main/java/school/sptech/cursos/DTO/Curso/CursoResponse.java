@@ -13,42 +13,25 @@ import java.time.LocalDateTime;
         "id",
         "nome",
         "descricao",
-        "preco",
-        "cursoIniciado",
-        "dataInicio",
-        "dataEncerramento",
-        "qtdVagas",
+        "imagem",
         "area",
-        "professor",
-        "endereco"
+        "professor"
 })
 public class CursoResponse {
 
     private Long id;
     private String nome;
     private String descricao;
-    private LocalDateTime dataInicio;
-    private LocalDateTime dataEncerramento;
-    private BigDecimal preco;
-    private Integer qtdVagas;
-    private Boolean cursoIniciado;
     private String imagem;
     private AreaCursoResponse area;
-    private EnderecoCursoResponse endereco;
     private ProfessorResponse professor;
 
     public CursoResponse(Curso curso) {
         this.id = curso.getId();
         this.nome = curso.getNome();
         this.descricao = curso.getDescricao();
-        this.dataInicio = curso.getDataInicio();
-        this.dataEncerramento = curso.getDataEncerramento();
-        this.preco = curso.getPreco();
-        this.qtdVagas = curso.getQtdVagas();
-        this.cursoIniciado = curso.getCursoIniciado();
         this.imagem = curso.getImagem();
         this.area = new AreaCursoResponse(curso.getArea());
-        this.endereco = new EnderecoCursoResponse(curso.getEndereco());
         this.professor = new ProfessorResponse(curso.getProfessor());
     }
 
@@ -76,52 +59,12 @@ public class CursoResponse {
         this.descricao = descricao;
     }
 
-    public LocalDateTime getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(LocalDateTime dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public LocalDateTime getDataEncerramento() {
-        return dataEncerramento;
-    }
-
-    public void setDataEncerramento(LocalDateTime dataEncerramento) {
-        this.dataEncerramento = dataEncerramento;
-    }
-
     public ProfessorResponse getProfessor() {
         return professor;
     }
 
     public void setProfessor(ProfessorResponse professor) {
         this.professor = professor;
-    }
-
-    public BigDecimal getPreco() {
-        return preco;
-    }
-
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
-
-    public Integer getQtdVagas() {
-        return qtdVagas;
-    }
-
-    public void setQtdVagas(Integer qtdVagas) {
-        this.qtdVagas = qtdVagas;
-    }
-
-    public Boolean getCursoIniciado() {
-        return cursoIniciado;
-    }
-
-    public void setCursoIniciado(Boolean cursoIniciado) {
-        this.cursoIniciado = cursoIniciado;
     }
 
     public String getImagem() {
@@ -138,13 +81,5 @@ public class CursoResponse {
 
     public void setArea(AreaCursoResponse area) {
         this.area = area;
-    }
-
-    public EnderecoCursoResponse getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(EnderecoCursoResponse endereco) {
-        this.endereco = endereco;
     }
 }
