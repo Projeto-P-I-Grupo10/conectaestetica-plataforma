@@ -1,7 +1,10 @@
 package school.sptech.cursos.DTO.Turma;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import school.sptech.cursos.DTO.Curso.CursoResponse;
 import school.sptech.cursos.DTO.EnderecoCurso.EnderecoCursoResponse;
+import school.sptech.cursos.DTO.Professor.ProfessorResponse;
+import school.sptech.cursos.model.Turma;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -29,6 +32,19 @@ public class TurmaResponse {
     private Integer qtdVagas;
     private Boolean cursoIniciado;
     private EnderecoCursoResponse endereco;
+    private CursoResponse curso;
+
+    public TurmaResponse(Turma turma) {
+        this.id = turma.getId();
+        this.nome = turma.getNome();
+        this.dataInicio = turma.getDataInicio();
+        this.dataEncerramento = turma.getDataEncerramento();
+        this.preco = turma.getPreco();
+        this.qtdVagas = turma.getQtdVagas();
+        this.cursoIniciado = turma.getCursoAtivo();
+        this.endereco = new EnderecoCursoResponse(turma.getEndereco());
+        this.curso = new CursoResponse(turma.getCurso());
+    }
 
     public Long getId() {
         return id;

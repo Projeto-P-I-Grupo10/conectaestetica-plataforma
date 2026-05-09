@@ -22,7 +22,7 @@ public class Turma {
 
     private Integer qtdVagas;
 
-    private Boolean cursoIniciado;
+    private Boolean cursoAtivo;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
@@ -80,12 +80,12 @@ public class Turma {
         this.qtdVagas = qtdVagas;
     }
 
-    public Boolean getCursoIniciado() {
-        return cursoIniciado;
+    public Boolean getCursoAtivo() {
+        return cursoAtivo;
     }
 
-    public void setCursoIniciado(Boolean cursoIniciado) {
-        this.cursoIniciado = cursoIniciado;
+    public void setCursoAtivo(Boolean cursoAtivo) {
+        this.cursoAtivo = cursoAtivo;
     }
 
     public EnderecoCurso getEndereco() {

@@ -23,9 +23,11 @@ public class TurmaRequest {
     @Max(value = 20,message = "A quantidade maxima de vagas é 20")
     private Integer qtdVagas;
     @NotNull
-    private Boolean cursoIniciado;
-    @Valid
-    private EnderecoCursoRequest endereco;
+    private Boolean cursoAtivo;
+    @NotNull
+    private Long enderecoId;
+    @NotNull
+    private Long cursoId;
 
     public String getNome() {
         return nome;
@@ -67,19 +69,27 @@ public class TurmaRequest {
         this.qtdVagas = qtdVagas;
     }
 
-    public Boolean getCursoIniciado() {
-        return cursoIniciado;
+    public Boolean getCursoAtivo() {
+        return cursoAtivo;
     }
 
-    public void setCursoIniciado(Boolean cursoIniciado) {
-        this.cursoIniciado = cursoIniciado;
+    public void setCursoAtivo(Boolean cursoAtivo) {
+        this.cursoAtivo = cursoAtivo;
     }
 
-    public EnderecoCursoRequest getEndereco() {
-        return endereco;
+    public Long getEnderecoId() {
+        return enderecoId;
     }
 
-    public void setEndereco(EnderecoCursoRequest endereco) {
-        this.endereco = endereco;
+    public void setEnderecoId(Long enderecoId) {
+        this.enderecoId = enderecoId;
+    }
+
+    public Long getCursoId() {
+        return cursoId;
+    }
+
+    public void setCursoId(Long cursoId) {
+        this.cursoId = cursoId;
     }
 }
