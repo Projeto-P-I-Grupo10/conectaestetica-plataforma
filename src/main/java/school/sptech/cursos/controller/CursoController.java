@@ -35,7 +35,7 @@ public class CursoController {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
-        @PostMapping
+    @PostMapping
     public ResponseEntity<CursoResponse> criarCurso(@RequestBody @Valid CursoRequest request) {
         CursoResponse curso = this.service.adicionarCurso(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(curso);

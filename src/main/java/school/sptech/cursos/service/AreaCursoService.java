@@ -34,9 +34,9 @@ public class AreaCursoService {
     }
 
 
-    public AreaCurso buscarPorNome(String nome) {
-        return repository.findByNome(nome)
-                .orElseThrow(() -> new EntityNotFoundException("Área não encontrada: " + nome));
+    public AreaCurso buscarPorId(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Id:"+ id +" não encontrado: "));
     }
 
     public AreaCursoResponse adicionarAreaCurso(AreaCursoRequest request)
