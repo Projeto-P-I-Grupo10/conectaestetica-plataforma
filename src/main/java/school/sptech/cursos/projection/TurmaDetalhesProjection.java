@@ -12,6 +12,7 @@ public interface TurmaDetalhesProjection {
     BigDecimal getTurmaPreco();
     String getCursoNome();
     String getCursoDescricao();
+    Long getCursoId();
     String getCursoImagem();
     String getProfessorNome();
     String getProfessorFoto();

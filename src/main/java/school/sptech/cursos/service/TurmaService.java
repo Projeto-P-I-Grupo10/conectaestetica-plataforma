@@ -12,6 +12,8 @@ import school.sptech.cursos.repository.ICursoRepository;
 import school.sptech.cursos.repository.IEnderecoCursoRepository;
 import school.sptech.cursos.repository.ITurmaRepository;
 
+import java.util.List;
+
 @Service
 public class TurmaService {
 
@@ -32,13 +34,17 @@ public class TurmaService {
                 .orElseThrow(() -> new EntityNotFoundException("Id:"+ id +" não encontrado na tabela turma: "));
     }
 
+    public List<TurmaDetalhesProjection> listarDetalhes() {
+        return turmaRepository.buscarTodosDetalhes();
+    }
+
     public TurmaResponse adicionarTurma(TurmaRequest request)
     {
         EnderecoCurso enderecoCurso = enderecoCursoRepository.findById(request.getEnderecoId())
                 .orElseThrow(() -> new EntityNotFoundException("Id:"+ request.getEnderecoId() +" não encontrado na tabela endereço curso: "));
-        Curso curso = cursoRepository.findById(request.getCursoId())
-                .orElseThrow(() -> new EntityNotFoundException("Id:"+ request.getEnderecoId() +" não encontrado na tabela curso: "));
 
+        Curso curso = cursoRepository.findById(request.getCursoId())
+                .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado com id: " + request.getCursoId()));
         Turma turma = new Turma();
         turma.setNome(request.getNome());
         turma.setDataInicio(request.getDataInicio());

@@ -8,6 +8,8 @@ import school.sptech.cursos.DTO.Turma.TurmaResponse;
 import school.sptech.cursos.projection.TurmaDetalhesProjection;
 import school.sptech.cursos.service.TurmaService;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/turmas")
@@ -23,6 +25,12 @@ public class TurmaController {
     public ResponseEntity<TurmaDetalhesProjection> buscarDetalhes(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarDetalhes(id));
     }
+
+    @GetMapping("/detalhes")
+    public ResponseEntity<List<TurmaDetalhesProjection>> listarDetalhes() {
+        return ResponseEntity.ok(service.listarDetalhes());
+    }
+
 
     @PostMapping
     public ResponseEntity<TurmaResponse> criar(@RequestBody @Valid TurmaRequest request) {
