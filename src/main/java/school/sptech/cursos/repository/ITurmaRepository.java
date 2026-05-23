@@ -28,11 +28,11 @@ public interface ITurmaRepository extends JpaRepository<Turma,Long> {
             p.redesocial        AS professorRedesocial,
             ac.nome             AS areaNome
         FROM turma t
-        JOIN curso c 
+        JOIN curso c
             ON c.id = t.curso_id
-        JOIN professor p 
+        JOIN professor p
             ON p.id = c.professor_id
-        JOIN area_curso ac 
+        JOIN area_curso ac
             ON ac.id = c.area_id
         WHERE t.id = :id
     """, nativeQuery = true)
