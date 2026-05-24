@@ -24,6 +24,17 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<HistoricoEnderecoUsuario> endereco = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario")
+    private List<AvaliacaoCurso> avaliacoes;
+
+    public List<AvaliacaoCurso> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(List<AvaliacaoCurso> avaliacoes) {
+        this.avaliacoes = avaliacoes;
+    }
+
     public Usuario() {
     }
 

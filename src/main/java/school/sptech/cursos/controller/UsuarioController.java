@@ -123,7 +123,7 @@ public class UsuarioController {
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponse> atualizar(
             @PathVariable Long id,
-            @RequestBody @Valid UsuarioRequest request
+            @RequestBody @Valid UsuarioAtualizarRequest request
     ) {
         return ResponseEntity.ok(service.atualizar(id, request));
     }
