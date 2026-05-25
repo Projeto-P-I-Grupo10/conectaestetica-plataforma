@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import school.sptech.cursos.Config.GerenciadorTokenJwt;
 import school.sptech.cursos.DTO.HistoricoEnderecoUsuario.HistoricoEnderecoUsuarioRequest;
+import school.sptech.cursos.DTO.Usuario.UsuarioAtualizarRequest;
 import school.sptech.cursos.DTO.Usuario.UsuarioRequest;
 import school.sptech.cursos.DTO.Usuario.UsuarioResponse;
 import school.sptech.cursos.DTO.Usuario.UsuarioToken;
@@ -62,10 +63,17 @@ public class UsuarioService {
         Usuario usuario = new Usuario();
 
         if (repository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email já cadastrado");
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Email já cadastrado"
+            );
         }
+
         if (repository.existsByTelefone(request.getTelefone())) {
-            throw new RuntimeException("Telefone já cadastrado");
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Telefone já cadastrado"
+            );
         }
         String senhaCriptografada = passwordEncoder.encode(request.getSenha());
         usuario.setNome(request.getNome());
@@ -145,25 +153,32 @@ public class UsuarioService {
     }
 
 
-    public UsuarioResponse atualizar(Long id, UsuarioRequest request) {
+    public UsuarioResponse atualizar(Long id, UsuarioAtualizarRequest request) {
         Usuario usuario = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario inválido"));
 
         if (!usuario.getEmail().equals(request.getEmail()) &&
                 repository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email já cadastrado");
+
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Email já cadastrado"
+            );
         }
 
         if (!usuario.getTelefone().equals(request.getTelefone()) &&
                 repository.existsByTelefone(request.getTelefone())) {
-            throw new RuntimeException("Telefone já cadastrado");
+
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Telefone já cadastrado"
+            );
         }
 
         usuario.setNome(request.getNome());
         usuario.setEmail(request.getEmail());
-        usuario.setSenha(passwordEncoder.encode(request.getSenha()));
         usuario.setTelefone(request.getTelefone());
-        usuario.setTipoUsuario(request.getTipoUsuario());
+        usuario.setTipoUsuario(usuario.getTipoUsuario());
 
         usuario = repository.save(usuario);
 

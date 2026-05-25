@@ -28,6 +28,17 @@ public class Curso {
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private Professor professor;
 
+    @OneToMany(mappedBy = "curso")
+    private List<AvaliacaoCurso> avaliacoes;
+
+    public List<AvaliacaoCurso> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(List<AvaliacaoCurso> avaliacoes) {
+        this.avaliacoes = avaliacoes;
+    }
+
     public Long getId() {
         return id;
     }
