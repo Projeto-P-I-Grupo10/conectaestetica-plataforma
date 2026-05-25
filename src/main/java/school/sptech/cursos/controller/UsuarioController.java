@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
@@ -139,4 +140,29 @@ public class UsuarioController {
         service.deletarPorID(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{id}/verificar-senha")
+    public ResponseEntity<ResetSenhaResponse> verificarSenha(
+            @PathVariable Long id,
+            @RequestBody ResetSenhaRequest request) {
+
+        if (!service.verificarSenhaUsuario(id, request.getSenhaAtual())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new ResetSenhaResponse("Senha atual incorreta",HttpStatus.UNAUTHORIZED));
+        }
+
+        return ResponseEntity.ok(new ResetSenhaResponse("Senha válida",HttpStatus.OK));
+    }
+
+    @PatchMapping("/{id}/senha")
+    public ResponseEntity<ResetSenhaResponse> atualizarSenha(
+            @PathVariable Long id,
+            @RequestBody ResetSenhaNovaRequest request) {
+
+        service.atualizarSenhaUsuario(id, request.getNovaSenha());
+        return ResponseEntity.ok(new ResetSenhaResponse("Senha atualizada com sucesso",HttpStatus.OK));
+    }
+
+
+
 }
