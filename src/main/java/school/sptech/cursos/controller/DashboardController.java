@@ -1,13 +1,12 @@
 package school.sptech.cursos.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import school.sptech.cursos.projection.dashboard.DashFinanceiraProjection;
+import org.springframework.web.bind.annotation.*;
+import school.sptech.cursos.projection.dashboard.DashQtdComprasNumDeterminadoIntervaloProjection;
+import school.sptech.cursos.projection.dashboard.DashTop5Projection;
 import school.sptech.cursos.service.DashboardService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -22,7 +21,14 @@ public class DashboardController {
     }
 
     @GetMapping("/top5")
-    public ResponseEntity<List<DashFinanceiraProjection>> top5(){
+    public ResponseEntity<List<DashTop5Projection>> top5(){
         return ResponseEntity.status(200).body(dash.top5());
+    }
+
+    @GetMapping("/qtdVendasNumDeterminadoIntervalo/{dataInicio}/{dataFim}")
+    public ResponseEntity<List<DashQtdComprasNumDeterminadoIntervaloProjection>> qtdVendasNumDeterminadoIntervalo(
+            @PathVariable LocalDate dataInicio, @PathVariable LocalDate dataFim
+            ){
+        return ResponseEntity.status(200).body(dash.qtdVendasNumDeterminadoIntervalo(dataInicio, dataFim));
     }
 }

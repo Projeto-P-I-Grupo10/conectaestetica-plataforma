@@ -2,9 +2,9 @@ package school.sptech.cursos.projection.dashboard;
 
 import java.math.BigDecimal;
 
-public interface DashFinanceiraProjection {
+public interface DashTop5Projection {
         Long getIdTurma();
-        String getNomeTurma();
+        String getNomeCurso();
         Integer getTotalVendas();
         BigDecimal getFaturamentoTotal();
 }
