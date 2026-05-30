@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import school.sptech.cursos.model.Pagamento;
 import school.sptech.cursos.projection.dashboard.DashQtdComprasNumDeterminadoIntervaloProjection;
 import school.sptech.cursos.projection.dashboard.DashTop5Projection;
+import school.sptech.cursos.projection.dashboard.DashTotalFaturamentoNaSemana;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -50,6 +51,22 @@ public interface IDashFinanceira extends JpaRepository<Pagamento, Long> {
             @Param("dataInicio") LocalDate dataInicio,
             @Param("dataFim") LocalDate dataFim
     );
+    @Query(value = """
+            SELECT
+                    'SemanaPassada' AS periodo,
+                    SUM(valor) AS faturamentoTotal
+                FROM pagamento
+                WHERE status = 'approved'
+                  AND YEARWEEK(data_pagamento, 1) = YEARWEEK(CURDATE(), 1) - 1
+                UNION ALL
+                SELECT
+                    'SemanaAtual' AS periodo,
+                    SUM(valor) AS faturamento_total
+                FROM pagamento
+                WHERE status = 'approved'
+                  AND YEARWEEK(data_pagamento, 1) = YEARWEEK(CURDATE(), 1);
+    """, nativeQuery = true)
+    List<DashTotalFaturamentoNaSemana> qtdDeFaturamentoNaSemana();
 
 
 }
