@@ -28,7 +28,7 @@ public class Curso {
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private Professor professor;
 
-    private BigDecimal porcentagem_lucro;
+    private Integer porcentagem_lucro;
 
     @OneToMany(mappedBy = "curso")
     private List<AvaliacaoCurso> avaliacoes;
