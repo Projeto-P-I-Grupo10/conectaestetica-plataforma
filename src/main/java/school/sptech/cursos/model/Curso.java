@@ -28,6 +28,8 @@ public class Curso {
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private Professor professor;
 
+    private BigDecimal porcentagem_lucro;
+
     @OneToMany(mappedBy = "curso")
     private List<AvaliacaoCurso> avaliacoes;
 
@@ -86,4 +88,8 @@ public class Curso {
     public void setProfessor(Professor professor) {
         this.professor = professor;
     }
+
+    public BigDecimal getPorcentagem_lucro() {return porcentagem_lucro;}
+
+    public void setPorcentagem_lucro(BigDecimal porcentagem_lucro) {this.porcentagem_lucro = porcentagem_lucro;}
 }
