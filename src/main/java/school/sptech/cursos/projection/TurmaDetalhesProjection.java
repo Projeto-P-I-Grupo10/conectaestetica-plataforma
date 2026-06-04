@@ -19,5 +19,8 @@ public interface TurmaDetalhesProjection {
     String getProfessorDescricao();
     String getProfessorRedesocial();
     String getAreaNome();
+    String getEnderecoRua();
+    String getEnderecoNumero();
+    String getEnderecoCidade();
 }
 
