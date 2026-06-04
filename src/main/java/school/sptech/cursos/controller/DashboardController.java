@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.cursos.dto.dashboard.DashFaturamentoTotalResponse;
 import school.sptech.cursos.dto.dashboard.DashLucroSemanaResponse;
+import school.sptech.cursos.dto.dashboard.DashTicketMedioResponse;
 import school.sptech.cursos.projection.dashboard.DashQtdComprasNumDeterminadoIntervaloProjection;
 import school.sptech.cursos.projection.dashboard.DashTop5Projection;
 import school.sptech.cursos.projection.dashboard.DashTotalFaturamentoNaSemana;
@@ -44,6 +45,11 @@ public class DashboardController {
     @GetMapping("/faturamentoTotal")
     public ResponseEntity<DashFaturamentoTotalResponse> faturamentoTotal(){
         return ResponseEntity.status(200).body(dash.faturamentoTotal());
+    }
+
+    @GetMapping("/ticketMedio")
+    public ResponseEntity<DashTicketMedioResponse> ticketMedio(){
+        return ResponseEntity.status(200).body(dash.ticketMedio());
     }
 
 }

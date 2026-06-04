@@ -3,6 +3,7 @@ package school.sptech.cursos.service;
 import org.springframework.stereotype.Service;
 import school.sptech.cursos.dto.dashboard.DashFaturamentoTotalResponse;
 import school.sptech.cursos.dto.dashboard.DashLucroSemanaResponse;
+import school.sptech.cursos.dto.dashboard.DashTicketMedioResponse;
 import school.sptech.cursos.projection.dashboard.DashQtdComprasNumDeterminadoIntervaloProjection;
 import school.sptech.cursos.projection.dashboard.DashTop5Projection;
 import school.sptech.cursos.projection.dashboard.DashTotalFaturamentoNaSemana;
@@ -52,5 +53,9 @@ public class DashboardService {
 
     public DashFaturamentoTotalResponse faturamentoTotal() {
         return new DashFaturamentoTotalResponse(dashFinanceira.faturamentoTotal());
+    }
+
+    public DashTicketMedioResponse ticketMedio(){
+        return new DashTicketMedioResponse(dashFinanceira.ticketMedio());
     }
 }
