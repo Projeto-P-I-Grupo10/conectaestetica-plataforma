@@ -2,11 +2,14 @@ package school.sptech.cursos.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import school.sptech.cursos.dto.dashboard.DashFaturamentoTotalResponse;
+import school.sptech.cursos.dto.dashboard.DashLucroSemanaResponse;
 import school.sptech.cursos.projection.dashboard.DashQtdComprasNumDeterminadoIntervaloProjection;
 import school.sptech.cursos.projection.dashboard.DashTop5Projection;
 import school.sptech.cursos.projection.dashboard.DashTotalFaturamentoNaSemana;
 import school.sptech.cursos.service.DashboardService;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,9 +36,14 @@ public class DashboardController {
         return ResponseEntity.status(200).body(dash.qtdVendasNumDeterminadoIntervalo(dataInicio, dataFim));
     }
 
-    @GetMapping("/totalFaturamentoSemena")
-    public ResponseEntity<List<DashTotalFaturamentoNaSemana>> totalFaturamentoSemena(){
+    @GetMapping("/totalLucroSemena")
+    public ResponseEntity<DashLucroSemanaResponse> totalFaturamentoSemena(){
         return ResponseEntity.status(200).body(dash.totalFaturamentoNaSemana());
+    }
+
+    @GetMapping("/faturamentoTotal")
+    public ResponseEntity<DashFaturamentoTotalResponse> faturamentoTotal(){
+        return ResponseEntity.status(200).body(dash.faturamentoTotal());
     }
 
 }
