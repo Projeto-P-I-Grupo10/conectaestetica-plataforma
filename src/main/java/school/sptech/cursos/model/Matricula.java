@@ -28,6 +28,19 @@ public class Matricula {
 
     private MatriculaEnum status = MatriculaEnum.EM_ANALISE;
 
+    public Matricula(Usuario usuario, Turma turma, LocalDateTime dataSolicitacao, LocalDateTime dataAprovacao, List<Documento> documentos, MatriculaEnum status) {
+        this.usuario = usuario;
+        this.turma = turma;
+        this.dataSolicitacao = dataSolicitacao;
+        this.dataAprovacao = dataAprovacao;
+        this.documentos = documentos;
+        this.status = status;
+    }
+
+    public Matricula() {
+
+    }
+
     public Long getId() {
         return id;
     }

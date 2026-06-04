@@ -2,8 +2,6 @@ package school.sptech.cursos.model;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -89,7 +87,7 @@ public class Curso {
         this.professor = professor;
     }
 
-    public BigDecimal getPorcentagem_lucro() {return porcentagem_lucro;}
+    public Integer getPorcentagem_lucro() {return porcentagem_lucro;}
 
-    public void setPorcentagem_lucro(BigDecimal porcentagem_lucro) {this.porcentagem_lucro = porcentagem_lucro;}
+    public void setPorcentagem_lucro(Integer porcentagem_lucro) {this.porcentagem_lucro = porcentagem_lucro;}
 }

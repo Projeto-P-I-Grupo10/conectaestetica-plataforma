@@ -41,7 +41,7 @@ public class MatriculaService {
         return resposta;
     }
 
-//    public MatriculaResponse buscarPorId(Long id) {
-//
-//    }
+    public MatriculaResponse buscarPorId(Long id) {
+
+    }
 }
