@@ -8,6 +8,7 @@ import school.sptech.cursos.projection.dashboard.DashQtdComprasNumDeterminadoInt
 import school.sptech.cursos.projection.dashboard.DashTop5Projection;
 import school.sptech.cursos.projection.dashboard.DashTotalFaturamentoNaSemana;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -53,20 +54,25 @@ public interface IDashFinanceira extends JpaRepository<Pagamento, Long> {
     );
     @Query(value = """
             SELECT
-                    'SemanaPassada' AS periodo,
-                    SUM(valor) AS faturamentoTotal
-                FROM pagamento
-                WHERE status = 'approved'
-                  AND YEARWEEK(data_pagamento, 1) = YEARWEEK(CURDATE(), 1) - 1
-                UNION ALL
-                SELECT
-                    'SemanaAtual' AS periodo,
-                    SUM(valor) AS faturamento_total
-                FROM pagamento
-                WHERE status = 'approved'
-                  AND YEARWEEK(data_pagamento, 1) = YEARWEEK(CURDATE(), 1);
+                        'SemanaPassada' AS periodo,
+                        p.valor AS faturamentoTotal,
+                        t.porcentagem_lucro AS porcentagemLucro
+                    FROM pagamento p
+                    JOIN turma t ON p.id_turma = t.id
+                    WHERE p.status = 'approved'
+                      AND YEARWEEK(p.data_pagamento, 1) = YEARWEEK(CURDATE(), 1) - 1
+                       UNION ALL
+                    SELECT
+                        'semanaAtual' AS periodo,
+                        p.valor AS faturamentoTotal,
+                        t.porcentagem_lucro AS porcentagemLucro
+                    FROM pagamento p
+                    JOIN turma t ON p.id_turma = t.id
+                    WHERE p.status = 'approved'
+                    AND YEARWEEK(data_pagamento, 1) = YEARWEEK(CURDATE(), 1);
     """, nativeQuery = true)
     List<DashTotalFaturamentoNaSemana> qtdDeFaturamentoNaSemana();
 
-
+    @Query("SELECT SUM(p.valor) FROM Pagamento p WHERE p.status = 'approved'")
+    BigDecimal  faturamentoTotal();
 }
