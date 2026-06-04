@@ -2,8 +2,6 @@ package school.sptech.cursos.model;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -27,6 +25,8 @@ public class Curso {
     @ManyToOne
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private Professor professor;
+
+    private Integer porcentagem_lucro;
 
     @OneToMany(mappedBy = "curso")
     private List<AvaliacaoCurso> avaliacoes;
@@ -86,4 +86,8 @@ public class Curso {
     public void setProfessor(Professor professor) {
         this.professor = professor;
     }
+
+    public Integer getPorcentagem_lucro() {return porcentagem_lucro;}
+
+    public void setPorcentagem_lucro(Integer porcentagem_lucro) {this.porcentagem_lucro = porcentagem_lucro;}
 }
