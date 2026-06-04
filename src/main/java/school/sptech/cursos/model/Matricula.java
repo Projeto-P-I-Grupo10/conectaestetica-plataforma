@@ -24,6 +24,7 @@ public class Matricula {
 
     private LocalDateTime dataAprovacao;
 
+    @OneToMany(mappedBy = "matricula", cascade = CascadeType.ALL)
     private List<Documento> documentos;
 
     private MatriculaEnum status = MatriculaEnum.EM_ANALISE;

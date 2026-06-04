@@ -9,9 +9,9 @@ public class MatriculaMapper implements IMapper<Matricula, MatriculaRequest, Mat
     public Matricula toEntity(MatriculaRequest request) {
 
         Matricula matricula = new Matricula();
-        matricula.setUsuario();
+//        matricula.setUsuario();
 
-        return
+        return null;
     }
 
     @Override
