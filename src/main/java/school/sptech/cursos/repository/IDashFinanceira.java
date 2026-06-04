@@ -3,7 +3,7 @@ package school.sptech.cursos.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import school.sptech.cursos.model.Pagamento;
+import school.sptech.cursos.entity.Pagamento;
 import school.sptech.cursos.projection.dashboard.DashQtdComprasNumDeterminadoIntervaloProjection;
 import school.sptech.cursos.projection.dashboard.DashTop5Projection;
 import school.sptech.cursos.projection.dashboard.DashTotalFaturamentoNaSemana;

@@ -2,13 +2,11 @@ package school.sptech.cursos.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
-import school.sptech.cursos.DTO.Area.AreaCursoResponse;
-import school.sptech.cursos.DTO.Curso.CursoRequest;
-import school.sptech.cursos.DTO.Curso.CursoResponse;
-import school.sptech.cursos.DTO.Professor.ProfessorResponse;
-import school.sptech.cursos.model.AreaCurso;
-import school.sptech.cursos.model.Curso;
-import school.sptech.cursos.model.Professor;
+import school.sptech.cursos.dto.curso.CursoRequest;
+import school.sptech.cursos.dto.curso.CursoResponse;
+import school.sptech.cursos.entity.AreaCurso;
+import school.sptech.cursos.entity.Curso;
+import school.sptech.cursos.entity.Professor;
 import school.sptech.cursos.repository.IAreaCursoRepository;
 import school.sptech.cursos.repository.ICursoRepository;
 import school.sptech.cursos.repository.IProfessorRepository;

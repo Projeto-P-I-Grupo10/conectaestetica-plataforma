@@ -1,8 +1,7 @@
 package school.sptech.cursos.service;
 
-import school.sptech.cursos.DTO.Matricula.MatriculaResponse;
-import school.sptech.cursos.model.Documento;
-import school.sptech.cursos.model.Matricula;
+import school.sptech.cursos.dto.matricula.MatriculaResponse;
+import school.sptech.cursos.entity.Matricula;
 import school.sptech.cursos.repository.IMatriculaRepository;
 import school.sptech.cursos.repository.ITurmaRepository;
 import school.sptech.cursos.repository.IUsuarioRepository;

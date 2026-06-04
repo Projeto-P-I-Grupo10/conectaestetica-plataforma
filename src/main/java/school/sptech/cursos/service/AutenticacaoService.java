@@ -1,13 +1,12 @@
 package school.sptech.cursos.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import school.sptech.cursos.model.Usuario;
+import school.sptech.cursos.entity.Usuario;
 import school.sptech.cursos.repository.IUsuarioRepository;
-import school.sptech.cursos.DTO.Usuario.UsuarioDetalhes;
+import school.sptech.cursos.dto.usuario.UsuarioDetalhes;
 
 import java.util.Optional;
 

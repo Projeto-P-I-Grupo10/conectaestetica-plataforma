@@ -2,12 +2,11 @@ package school.sptech.cursos.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
-import school.sptech.cursos.DTO.AvaliacaoCurso.AvaliacaoCursoRequest;
-import school.sptech.cursos.DTO.AvaliacaoCurso.AvaliacaoCursoResponse;
-import school.sptech.cursos.DTO.Curso.CursoResponse;
-import school.sptech.cursos.model.AvaliacaoCurso;
-import school.sptech.cursos.model.Curso;
-import school.sptech.cursos.model.Usuario;
+import school.sptech.cursos.dto.avaliacaoCurso.AvaliacaoCursoRequest;
+import school.sptech.cursos.dto.avaliacaoCurso.AvaliacaoCursoResponse;
+import school.sptech.cursos.entity.AvaliacaoCurso;
+import school.sptech.cursos.entity.Curso;
+import school.sptech.cursos.entity.Usuario;
 import school.sptech.cursos.repository.IAvaliacaoCurso;
 import school.sptech.cursos.repository.ICursoRepository;
 import school.sptech.cursos.repository.IUsuarioRepository;

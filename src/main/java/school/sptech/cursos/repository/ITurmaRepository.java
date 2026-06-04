@@ -3,7 +3,7 @@ package school.sptech.cursos.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import school.sptech.cursos.model.Turma;
+import school.sptech.cursos.entity.Turma;
 import school.sptech.cursos.projection.TurmaDetalhesProjection;
 
 import java.util.List;

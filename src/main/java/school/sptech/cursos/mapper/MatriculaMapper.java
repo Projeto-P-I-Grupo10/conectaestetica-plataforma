@@ -1,8 +1,8 @@
 package school.sptech.cursos.mapper;
 
-import school.sptech.cursos.DTO.Matricula.MatriculaRequest;
-import school.sptech.cursos.DTO.Matricula.MatriculaResponse;
-import school.sptech.cursos.model.Matricula;
+import school.sptech.cursos.dto.matricula.MatriculaRequest;
+import school.sptech.cursos.dto.matricula.MatriculaResponse;
+import school.sptech.cursos.entity.Matricula;
 
 public class MatriculaMapper implements IMapper<Matricula, MatriculaRequest, MatriculaResponse>{
     @Override

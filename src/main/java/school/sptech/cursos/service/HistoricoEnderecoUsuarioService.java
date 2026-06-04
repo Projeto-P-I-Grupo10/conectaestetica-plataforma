@@ -1,11 +1,10 @@
 package school.sptech.cursos.service;
 
 import org.springframework.stereotype.Service;
-import school.sptech.cursos.DTO.HistoricoEnderecoUsuario.HistoricoEnderecoUsuarioCreateRequest;
-import school.sptech.cursos.DTO.HistoricoEnderecoUsuario.HistoricoEnderecoUsuarioRequest;
-import school.sptech.cursos.DTO.HistoricoEnderecoUsuario.HistoricoEnderecoUsuarioResponse;
-import school.sptech.cursos.model.HistoricoEnderecoUsuario;
-import school.sptech.cursos.model.Usuario;
+import school.sptech.cursos.dto.historicoEnderecoUsuario.HistoricoEnderecoUsuarioCreateRequest;
+import school.sptech.cursos.dto.historicoEnderecoUsuario.HistoricoEnderecoUsuarioResponse;
+import school.sptech.cursos.entity.HistoricoEnderecoUsuario;
+import school.sptech.cursos.entity.Usuario;
 import school.sptech.cursos.repository.IHistoricoEnderecoUsuarioRepository;
 import school.sptech.cursos.repository.IUsuarioRepository;
 

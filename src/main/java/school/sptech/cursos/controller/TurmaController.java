@@ -3,8 +3,8 @@ package school.sptech.cursos.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import school.sptech.cursos.DTO.Turma.TurmaRequest;
-import school.sptech.cursos.DTO.Turma.TurmaResponse;
+import school.sptech.cursos.dto.turma.TurmaRequest;
+import school.sptech.cursos.dto.turma.TurmaResponse;
 import school.sptech.cursos.projection.TurmaDetalhesProjection;
 import school.sptech.cursos.service.TurmaService;
 
