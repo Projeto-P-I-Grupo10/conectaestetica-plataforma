@@ -75,4 +75,7 @@ public interface IDashFinanceira extends JpaRepository<Pagamento, Long> {
 
     @Query("SELECT SUM(p.valor) FROM Pagamento p WHERE p.status = 'approved'")
     BigDecimal  faturamentoTotal();
+
+    @Query("SELECT AVG(p.valor) FROM Pagamento p WHERE p.status = 'approved'")
+    BigDecimal ticketMedio();
 }
