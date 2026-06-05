@@ -18,6 +18,7 @@ import school.sptech.cursos.dto.usuario.UsuarioResponse;
 import school.sptech.cursos.dto.usuario.UsuarioToken;
 import school.sptech.cursos.entity.HistoricoEnderecoUsuario;
 import school.sptech.cursos.entity.Usuario;
+import school.sptech.cursos.projection.usuario.UsuarioTurmarCompradasProjection;
 import school.sptech.cursos.repository.IUsuarioRepository;
 
 import java.time.LocalDateTime;
@@ -216,6 +217,10 @@ public class UsuarioService {
         usuario.setSenha(encoder.encode(novaSenha));
 
         repository.save(usuario);
+    }
+
+    public List<UsuarioTurmarCompradasProjection> turmasCompradasPorUsuario(Long id){
+        return repository.buscarTurmasCompradasPorUsuario(id);
     }
 
 }

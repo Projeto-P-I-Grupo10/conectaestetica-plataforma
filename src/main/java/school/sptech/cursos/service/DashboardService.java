@@ -6,12 +6,11 @@ import school.sptech.cursos.dto.dashboard.DashLucroSemanaResponse;
 import school.sptech.cursos.dto.dashboard.DashTicketMedioResponse;
 import school.sptech.cursos.projection.dashboard.DashQtdComprasNumDeterminadoIntervaloProjection;
 import school.sptech.cursos.projection.dashboard.DashTop5Projection;
-import school.sptech.cursos.projection.dashboard.DashTotalFaturamentoNaSemana;
+import school.sptech.cursos.projection.dashboard.DashTotalFaturamentoNaSemanaProjection;
 import school.sptech.cursos.repository.IDashFinanceira;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +31,7 @@ public class DashboardService {
     }
 
     public DashLucroSemanaResponse totalFaturamentoNaSemana() {
-        List<DashTotalFaturamentoNaSemana> semana = dashFinanceira.qtdDeFaturamentoNaSemana();
+        List<DashTotalFaturamentoNaSemanaProjection> semana = dashFinanceira.qtdDeFaturamentoNaSemana();
 
         BigDecimal lucroSemanaPassada = BigDecimal.ZERO;
         BigDecimal lucroSemanaAtual = BigDecimal.ZERO;
