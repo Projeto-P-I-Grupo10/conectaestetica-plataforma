@@ -1,4 +1,4 @@
-package school.sptech.cursos.Config;
+package school.sptech.cursos.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

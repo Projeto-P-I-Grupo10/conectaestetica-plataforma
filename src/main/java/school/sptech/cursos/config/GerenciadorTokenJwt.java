@@ -1,4 +1,4 @@
-package school.sptech.cursos.Config;
+package school.sptech.cursos.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

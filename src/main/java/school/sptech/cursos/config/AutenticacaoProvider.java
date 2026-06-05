@@ -1,4 +1,4 @@
-package school.sptech.cursos.Config;
+package school.sptech.cursos.config;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

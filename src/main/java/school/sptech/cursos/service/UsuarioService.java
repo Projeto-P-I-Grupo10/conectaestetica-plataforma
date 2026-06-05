@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import school.sptech.cursos.Config.GerenciadorTokenJwt;
+import school.sptech.cursos.config.GerenciadorTokenJwt;
 import school.sptech.cursos.DTO.HistoricoEnderecoUsuario.HistoricoEnderecoUsuarioRequest;
 import school.sptech.cursos.DTO.Usuario.UsuarioAtualizarRequest;
 import school.sptech.cursos.DTO.Usuario.UsuarioRequest;

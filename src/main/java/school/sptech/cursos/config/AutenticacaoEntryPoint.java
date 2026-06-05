@@ -1,6 +1,5 @@
-package school.sptech.cursos.Config;
+package school.sptech.cursos.config;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.BadCredentialsException;
