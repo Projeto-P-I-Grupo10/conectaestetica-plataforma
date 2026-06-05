@@ -26,7 +26,10 @@ public interface ITurmaRepository extends JpaRepository<Turma,Long> {
             p.foto              AS professorFoto,
             p.descricao         AS professorDescricao,
             p.redesocial        AS professorRedesocial,
-            ac.nome             AS areaNome
+            ac.nome             AS areaNome,
+            e.rua               AS enderecoRua,
+            e.numero            AS enderecoNumero,
+            e.cidade            AS enderecoCidade
         FROM turma t
         JOIN curso c
             ON c.id = t.curso_id
@@ -34,7 +37,8 @@ public interface ITurmaRepository extends JpaRepository<Turma,Long> {
             ON p.id = c.professor_id
         JOIN area_curso ac
             ON ac.id = c.area_id
-        WHERE t.id = :id
+        LEFT JOIN endereco_curso e
+            ON e.id = t.endereco_id
     """, nativeQuery = true)
     Optional<TurmaDetalhesProjection> buscarDetalhesCurso(@Param("id") Long id);
 
@@ -57,7 +61,12 @@ public interface ITurmaRepository extends JpaRepository<Turma,Long> {
             p.descricao         AS professorDescricao,
             p.redesocial        AS professorRedesocial,
 
-            ac.nome             AS areaNome
+            ac.nome             AS areaNome,
+            
+            e.rua               AS enderecoRua,
+            e.numero            AS enderecoNumero,
+            e.cidade            AS enderecoCidade
+                        
         FROM turma t
         JOIN curso c 
             ON c.id = t.curso_id
@@ -65,6 +74,8 @@ public interface ITurmaRepository extends JpaRepository<Turma,Long> {
             ON p.id = c.professor_id
         JOIN area_curso ac 
             ON ac.id = c.area_id
+        LEFT JOIN endereco_curso e
+            ON e.id = t.endereco_id
     """, nativeQuery = true)
     List<TurmaDetalhesProjection> buscarTodosDetalhes();
 
