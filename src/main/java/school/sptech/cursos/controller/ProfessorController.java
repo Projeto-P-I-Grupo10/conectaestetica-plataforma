@@ -3,8 +3,8 @@ package school.sptech.cursos.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import school.sptech.cursos.DTO.Professor.ProfessorRequest;
-import school.sptech.cursos.DTO.Professor.ProfessorResponse;
+import school.sptech.cursos.dto.professor.ProfessorRequest;
+import school.sptech.cursos.dto.professor.ProfessorResponse;
 import school.sptech.cursos.service.ProfessorService;
 
 import java.util.List;

@@ -3,8 +3,8 @@ package school.sptech.cursos.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import school.sptech.cursos.DTO.AvaliacaoCurso.AvaliacaoCursoRequest;
-import school.sptech.cursos.DTO.AvaliacaoCurso.AvaliacaoCursoResponse;
+import school.sptech.cursos.dto.avaliacaoCurso.AvaliacaoCursoRequest;
+import school.sptech.cursos.dto.avaliacaoCurso.AvaliacaoCursoResponse;
 import school.sptech.cursos.service.AvaliacaoCursoService;
 
 
@@ -22,16 +22,11 @@ public class AvaliacaoCursoController {
         this.service = service;
     }
 
-    @GetMapping
-    public ResponseEntity<List<AvaliacaoCursoResponse>> listarAvaliacoes() {
-        return ResponseEntity.ok(service.listarAvaliacoes());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<AvaliacaoCursoResponse> buscarPorId(
-            @PathVariable Long id
+    @GetMapping("/{idCurso}")
+    public ResponseEntity<List<AvaliacaoCursoResponse>> listarAvaliacoesDoCurso(
+            @PathVariable Long idCurso
     ) {
-        return ResponseEntity.ok(service.buscarPorId(id));
+        return ResponseEntity.ok(service.listarAvaliacoesDoCurso(idCurso));
     }
 
     @PostMapping

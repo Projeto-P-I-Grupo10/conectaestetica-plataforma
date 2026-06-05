@@ -3,9 +3,9 @@ package school.sptech.cursos.service;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import school.sptech.cursos.DTO.Professor.ProfessorRequest;
-import school.sptech.cursos.DTO.Professor.ProfessorResponse;
-import school.sptech.cursos.model.Professor;
+import school.sptech.cursos.dto.professor.ProfessorRequest;
+import school.sptech.cursos.dto.professor.ProfessorResponse;
+import school.sptech.cursos.entity.Professor;
 import school.sptech.cursos.repository.IProfessorRepository;
 
 import java.util.ArrayList;

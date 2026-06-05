@@ -2,11 +2,11 @@ package school.sptech.cursos.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
-import school.sptech.cursos.DTO.Turma.TurmaRequest;
-import school.sptech.cursos.DTO.Turma.TurmaResponse;
-import school.sptech.cursos.model.Curso;
-import school.sptech.cursos.model.EnderecoCurso;
-import school.sptech.cursos.model.Turma;
+import school.sptech.cursos.dto.turma.TurmaRequest;
+import school.sptech.cursos.dto.turma.TurmaResponse;
+import school.sptech.cursos.entity.Curso;
+import school.sptech.cursos.entity.EnderecoCurso;
+import school.sptech.cursos.entity.Turma;
 import school.sptech.cursos.projection.TurmaDetalhesProjection;
 import school.sptech.cursos.repository.ICursoRepository;
 import school.sptech.cursos.repository.IEnderecoCursoRepository;
