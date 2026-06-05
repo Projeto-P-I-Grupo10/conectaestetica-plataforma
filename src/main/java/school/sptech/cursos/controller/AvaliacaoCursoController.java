@@ -22,16 +22,11 @@ public class AvaliacaoCursoController {
         this.service = service;
     }
 
-    @GetMapping
-    public ResponseEntity<List<AvaliacaoCursoResponse>> listarAvaliacoes() {
-        return ResponseEntity.ok(service.listarAvaliacoes());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<AvaliacaoCursoResponse> buscarPorId(
-            @PathVariable Long id
+    @GetMapping("/{idCurso}")
+    public ResponseEntity<List<AvaliacaoCursoResponse>> listarAvaliacoesDoCurso(
+            @PathVariable Long idCurso
     ) {
-        return ResponseEntity.ok(service.buscarPorId(id));
+        return ResponseEntity.ok(service.listarAvaliacoesDoCurso(idCurso));
     }
 
     @PostMapping

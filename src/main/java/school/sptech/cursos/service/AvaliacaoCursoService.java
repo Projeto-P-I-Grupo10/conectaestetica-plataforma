@@ -31,22 +31,16 @@ public class AvaliacaoCursoService {
         this.avaliacaoCursoRepository = avaliacaoCursoRepository;
     }
 
-    public List<AvaliacaoCursoResponse> listarAvaliacoes() {
-        List<AvaliacaoCurso> avaliacoes = avaliacaoCursoRepository.findAll();
-        List<AvaliacaoCursoResponse> avaliacoesResponse = new ArrayList<>();
 
-        for (AvaliacaoCurso avaliacao : avaliacoes)
-        {
-            avaliacoesResponse.add(new AvaliacaoCursoResponse(avaliacao));
+    public List<AvaliacaoCursoResponse> listarAvaliacoesDoCurso(Long idCurso) {
+        List<AvaliacaoCurso> avaliacoesCurso = avaliacaoCursoRepository.findByCursoId(idCurso);
+        List<AvaliacaoCursoResponse> listaResponse = new ArrayList<>();
+        for (AvaliacaoCurso avaliacaoCurso : avaliacoesCurso) {
+            AvaliacaoCursoResponse response = new AvaliacaoCursoResponse(avaliacaoCurso);
+
+            listaResponse.add(response);
         }
-        return avaliacoesResponse;
-    }
-
-    public AvaliacaoCursoResponse buscarPorId(Long id) {
-        AvaliacaoCurso avaliacaoCurso = avaliacaoCursoRepository.findById(id)
-                                        .orElseThrow(() ->
-                                                new EntityNotFoundException("Avaliação não encontrada com id: " + id));
-        return new AvaliacaoCursoResponse(avaliacaoCurso);
+        return listaResponse;
     }
 
     public AvaliacaoCursoResponse criarAvaliacao(AvaliacaoCursoRequest request) {

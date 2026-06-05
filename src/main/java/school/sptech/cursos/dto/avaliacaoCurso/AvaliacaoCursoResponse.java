@@ -1,18 +1,20 @@
 package school.sptech.cursos.dto.avaliacaoCurso;
 
+import school.sptech.cursos.dto.usuario.UsuarioResponse;
 import school.sptech.cursos.entity.AvaliacaoCurso;
+import school.sptech.cursos.entity.Usuario;
 
 public class AvaliacaoCursoResponse {
     private Long idCurso;
-    private Long idUsuario;
     private Double avaliacao;
     private String comentario;
+    private UsuarioResponse usuario;
 
     public AvaliacaoCursoResponse(AvaliacaoCurso avaliacao) {
         this.idCurso = avaliacao.getCurso().getId();
-        this.idUsuario = avaliacao.getUsuario().getId();
         this.avaliacao = avaliacao.getAvaliacao();
         this.comentario = avaliacao.getComentario();
+        this.usuario = new UsuarioResponse(avaliacao.getUsuario());
     }
 
     public Long getIdCurso() {
@@ -23,12 +25,12 @@ public class AvaliacaoCursoResponse {
         this.idCurso = idCurso;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public UsuarioResponse getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(UsuarioResponse usuario) {
+        this.usuario = usuario;
     }
 
     public Double getAvaliacao() {

@@ -1,5 +1,6 @@
 package school.sptech.cursos.dto.usuario;
 
+import school.sptech.cursos.entity.Usuario;
 import school.sptech.cursos.enums.UsuarioEnum;
 
 public class UsuarioResponse {
@@ -10,7 +11,16 @@ public class UsuarioResponse {
     private String telefone;
     private UsuarioEnum tipoUsuario;
 
-    // getters e setters
+    public UsuarioResponse() {
+    }
+
+    public UsuarioResponse(Usuario usuario) {
+        this.id = usuario.getId();
+        this.nome = usuario.getNome();
+        this.email = usuario.getEmail();
+        this.telefone = usuario.getTelefone();
+    }
+
 
     public Long getId() {
         return id;
