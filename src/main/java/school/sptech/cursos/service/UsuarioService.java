@@ -86,7 +86,8 @@ public class UsuarioService {
         List<HistoricoEnderecoUsuario> lista = new ArrayList<>();
 
 
-        if (request.getEndereco() != null) {
+        if (request.getEndereco() != null  && !request.getEndereco().isEmpty()) {
+            int contador = 0;
             for (HistoricoEnderecoUsuarioRequest endReq : request.getEndereco()) {
 
                 HistoricoEnderecoUsuario end = new HistoricoEnderecoUsuario();
@@ -96,9 +97,14 @@ public class UsuarioService {
                 end.setRua(endReq.getRua());
                 end.setCidade(endReq.getCidade());
                 end.setComplemento(endReq.getComplemento());
-                end.setDataPesquisa(LocalDateTime.now());
-
                 end.setUsuario(usuario);
+
+                if (contador == 0) {
+                    end.setEnderecoAtual(true);
+                } else {
+                    end.setEnderecoAtual(false);
+                }
+                contador++;
 
                 lista.add(end);
             }
