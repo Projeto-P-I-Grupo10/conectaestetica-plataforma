@@ -16,7 +16,7 @@ public class HistoricoEnderecoUsuario {
     private String rua;
     private String cidade;
     private String complemento;
-    private LocalDateTime dataPesquisa;
+    private Boolean enderecoAtual;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
@@ -78,19 +78,19 @@ public class HistoricoEnderecoUsuario {
         this.complemento = complemento;
     }
 
-    public LocalDateTime getDataPesquisa() {
-        return dataPesquisa;
-    }
-
-    public void setDataPesquisa(LocalDateTime dataPesquisa) {
-        this.dataPesquisa = dataPesquisa;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Boolean getEnderecoAtual() {
+        return enderecoAtual;
+    }
+
+    public void setEnderecoAtual(Boolean enderecoAtual) {
+        this.enderecoAtual = enderecoAtual;
     }
 }

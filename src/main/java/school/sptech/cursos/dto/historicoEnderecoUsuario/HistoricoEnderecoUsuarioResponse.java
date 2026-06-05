@@ -1,5 +1,7 @@
 package school.sptech.cursos.dto.historicoEnderecoUsuario;
 
+import school.sptech.cursos.entity.HistoricoEnderecoUsuario;
+
 import java.time.LocalDateTime;
 
 public class HistoricoEnderecoUsuarioResponse {
@@ -12,7 +14,22 @@ public class HistoricoEnderecoUsuarioResponse {
     private String cidade;
     private String complemento;
     private Long usuarioId;
-    private LocalDateTime dataPesquisa;
+    private Boolean enderecoAtual;
+
+    public HistoricoEnderecoUsuarioResponse() {
+    }
+
+    public HistoricoEnderecoUsuarioResponse(HistoricoEnderecoUsuario historicoEnderecoUsuario) {
+        this.id = historicoEnderecoUsuario.getId();
+        this.cep = historicoEnderecoUsuario.getCep();
+        this.numero = historicoEnderecoUsuario.getNumero();
+        this.uf = historicoEnderecoUsuario.getUf();
+        this.rua = historicoEnderecoUsuario.getRua();
+        this.cidade = historicoEnderecoUsuario.getCidade();
+        this.complemento = historicoEnderecoUsuario.getComplemento();
+        this.usuarioId = historicoEnderecoUsuario.getUsuario().getId();
+        this.enderecoAtual = historicoEnderecoUsuario.getEnderecoAtual();
+    }
 
     public Long getId() {
         return id;
@@ -78,11 +95,11 @@ public class HistoricoEnderecoUsuarioResponse {
         this.usuarioId = usuarioId;
     }
 
-    public LocalDateTime getDataPesquisa() {
-        return dataPesquisa;
+    public Boolean getEnderecoAtual() {
+        return enderecoAtual;
     }
 
-    public void setDataPesquisa(LocalDateTime dataPesquisa) {
-        this.dataPesquisa = dataPesquisa;
+    public void setEnderecoAtual(Boolean enderecoAtual) {
+        this.enderecoAtual = enderecoAtual;
     }
 }

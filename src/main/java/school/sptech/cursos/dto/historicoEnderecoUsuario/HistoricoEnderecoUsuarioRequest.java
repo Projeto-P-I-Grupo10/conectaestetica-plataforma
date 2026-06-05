@@ -22,7 +22,8 @@ public class HistoricoEnderecoUsuarioRequest {
     @Size(max = 100, message = "Complemento deve ter no máximo 100 caracteres")
     private String complemento;
     @NotNull(message = "UsuarioId é obrigatório")
-
+    private Long usuarioId;
+    private Boolean enderecoAtual;
     public String getCep() {
         return cep;
     }
@@ -71,4 +72,19 @@ public class HistoricoEnderecoUsuarioRequest {
         this.complemento = complemento;
     }
 
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public Boolean getEnderecoAtual() {
+        return enderecoAtual;
+    }
+
+    public void setEnderecoAtual(Boolean enderecoAtual) {
+        this.enderecoAtual = enderecoAtual;
+    }
 }
