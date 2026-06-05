@@ -13,6 +13,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.cursos.dto.usuario.*;
+import school.sptech.cursos.projection.usuario.UsuarioTurmarCompradasProjection;
 import school.sptech.cursos.service.UsuarioService;
 
 import java.time.Duration;
@@ -158,6 +159,11 @@ public class UsuarioController {
 
         service.atualizarSenhaUsuario(id, request.getNovaSenha());
         return ResponseEntity.ok(new ResetSenhaResponse("Senha atualizada com sucesso",HttpStatus.OK));
+    }
+
+    @GetMapping("/{id}/turmas-compradas-por-usuario")
+    public ResponseEntity<List<UsuarioTurmarCompradasProjection>> turmasCompradasPorUsuario(@PathVariable Long id){
+        return ResponseEntity.ok(service.turmasCompradasPorUsuario(id));
     }
 
 

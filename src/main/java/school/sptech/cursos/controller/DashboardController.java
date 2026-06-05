@@ -7,10 +7,8 @@ import school.sptech.cursos.dto.dashboard.DashLucroSemanaResponse;
 import school.sptech.cursos.dto.dashboard.DashTicketMedioResponse;
 import school.sptech.cursos.projection.dashboard.DashQtdComprasNumDeterminadoIntervaloProjection;
 import school.sptech.cursos.projection.dashboard.DashTop5Projection;
-import school.sptech.cursos.projection.dashboard.DashTotalFaturamentoNaSemana;
 import school.sptech.cursos.service.DashboardService;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
