@@ -8,8 +8,6 @@ import school.sptech.cursos.entity.HistoricoEnderecoUsuario;
 import school.sptech.cursos.entity.Usuario;
 import school.sptech.cursos.repository.IHistoricoEnderecoUsuarioRepository;
 import school.sptech.cursos.repository.IUsuarioRepository;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +85,24 @@ public class HistoricoEnderecoUsuarioService {
 
     public void deletar(Long id) {
         historicoRepository.deleteById(id);
+    }
+
+    public HistoricoEnderecoUsuarioResponse selecionarEnderecoAtual(Long enderecoId) {
+        HistoricoEnderecoUsuario enderecoSelecionado = historicoRepository.findById(enderecoId)
+                .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
+
+        Usuario usuario = enderecoSelecionado.getUsuario();
+
+        List<HistoricoEnderecoUsuario> enderecos = historicoRepository.findByUsuarioId(usuario.getId());
+        for (HistoricoEnderecoUsuario e : enderecos) {
+            if (Boolean.TRUE.equals(e.getEnderecoAtual())) {
+                e.setEnderecoAtual(false);
+                historicoRepository.save(e);
+            }
+        }
+        enderecoSelecionado.setEnderecoAtual(true);
+
+        return new HistoricoEnderecoUsuarioResponse(historicoRepository.save(enderecoSelecionado));
     }
 
 }
