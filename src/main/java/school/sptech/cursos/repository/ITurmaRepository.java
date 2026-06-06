@@ -39,6 +39,7 @@ public interface ITurmaRepository extends JpaRepository<Turma,Long> {
             ON ac.id = c.area_id
         LEFT JOIN endereco_curso e
             ON e.id = t.endereco_id
+        WHERE t.id = :id
     """, nativeQuery = true)
     Optional<TurmaDetalhesProjection> buscarDetalhesCurso(@Param("id") Long id);
 
