@@ -13,6 +13,9 @@ public class EnderecoCursoResponse {
     private String cidade;
     private String estado;
 
+    public EnderecoCursoResponse() {
+    }
+
     public EnderecoCursoResponse(EnderecoCurso endereco) {
         this.id = endereco.getId();
         this.rua = endereco.getRua();
