@@ -89,4 +89,16 @@ public class TurmaService {
         return new TurmaResponse(turmaAtualizada);
     }
 
+    public List<TurmaDetalhesProjection> listarDetalhesRecentes() {
+        return turmaRepository.buscarTodosDetalhesRecentes();
+    }
+
+    public List<TurmaDetalhesProjection> listarDetalhesPorPreco() {
+        return turmaRepository.buscarTodosDetalhesPorPreco();
+    }
+
+    public List<TurmaDetalhesProjection> listarDetalhesPorAvalicao() {
+        return turmaRepository.buscarTodosDetalhesPorAvalicao();
+    }
+
 }

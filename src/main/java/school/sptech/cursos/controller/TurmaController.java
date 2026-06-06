@@ -31,6 +31,20 @@ public class TurmaController {
         return ResponseEntity.ok(service.listarDetalhes());
     }
 
+    @GetMapping("/detalhes-recentes")
+    public ResponseEntity<List<TurmaDetalhesProjection>> listarDetalhesRecentes() {
+        return ResponseEntity.ok(service.listarDetalhesRecentes());
+    }
+
+    @GetMapping("/detalhes-preco")
+    public ResponseEntity<List<TurmaDetalhesProjection>> listarDetalhesPorPreco() {
+        return ResponseEntity.ok(service.listarDetalhesPorPreco());
+    }
+
+    @GetMapping("/detalhes-avaliacao")
+    public ResponseEntity<List<TurmaDetalhesProjection>> listarDetalhesPorAvaliacao() {
+        return ResponseEntity.ok(service.listarDetalhesPorAvalicao());
+    }
 
     @PostMapping
     public ResponseEntity<TurmaResponse> criar(@RequestBody @Valid TurmaRequest request) {
