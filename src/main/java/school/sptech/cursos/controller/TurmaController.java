@@ -46,6 +46,13 @@ public class TurmaController {
         return ResponseEntity.ok(service.listarDetalhesPorAvalicao());
     }
 
+    @GetMapping("/detalhes-area")
+    public ResponseEntity<List<TurmaDetalhesProjection>> listarDetalhesPorArea(
+            @RequestParam String area
+    ) {
+        return ResponseEntity.ok(service.listarDetalhesPorArea(area));
+    }
+
     @PostMapping
     public ResponseEntity<TurmaResponse> criar(@RequestBody @Valid TurmaRequest request) {
         return ResponseEntity.status(201).body(service.adicionarTurma(request));

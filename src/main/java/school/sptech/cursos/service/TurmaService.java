@@ -101,4 +101,8 @@ public class TurmaService {
         return turmaRepository.buscarTodosDetalhesPorAvalicao();
     }
 
+    public List<TurmaDetalhesProjection> listarDetalhesPorArea(String area) {
+        return turmaRepository.buscarTodosDetalhesPorArea(area);
+    }
+
 }
