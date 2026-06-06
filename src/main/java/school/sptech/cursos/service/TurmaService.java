@@ -28,8 +28,6 @@ public class TurmaService {
     }
 
     public TurmaDetalhesProjection buscarDetalhes(Long id) {
-        cursoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Id:"+ id +" não encontrado na tabela curso: "));
         return turmaRepository.buscarDetalhesCurso(id)
                 .orElseThrow(() -> new EntityNotFoundException("Id:"+ id +" não encontrado na tabela turma: "));
     }
