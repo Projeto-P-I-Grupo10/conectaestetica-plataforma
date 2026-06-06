@@ -56,4 +56,12 @@ public class HistoricoEnderecoUsuarioController {
         this.service.deletar(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @PutMapping("/{enderecoId}/selecionar")
+    public ResponseEntity<HistoricoEnderecoUsuarioResponse> selecionarEnderecoAtual(
+            @PathVariable Long enderecoId) {
+        HistoricoEnderecoUsuarioResponse endereco = this.service.selecionarEnderecoAtual(enderecoId);
+        return ResponseEntity.status(HttpStatus.OK).body(endereco);
+    }
+
 }

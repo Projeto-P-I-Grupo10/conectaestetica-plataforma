@@ -5,7 +5,7 @@ import jakarta.validation.constraints.*;
 public class HistoricoEnderecoUsuarioRequest {
 
     @NotBlank(message = "CEP é obrigatório")
-    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP deve estar no formato NNNNN-NNN")
+    @Pattern(regexp = "\\d{8}", message = "CEP deve conter 8 dígitos numéricos")
     private String cep;
     @NotBlank(message = "Número é obrigatório")
     @Size(max = 10, message = "Número deve ter no máximo 10 caracteres")
@@ -21,8 +21,6 @@ public class HistoricoEnderecoUsuarioRequest {
     private String cidade;
     @Size(max = 100, message = "Complemento deve ter no máximo 100 caracteres")
     private String complemento;
-    @NotNull(message = "UsuarioId é obrigatório")
-    private Long usuarioId;
     private Boolean enderecoAtual;
     public String getCep() {
         return cep;
@@ -70,14 +68,6 @@ public class HistoricoEnderecoUsuarioRequest {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
     }
 
     public Boolean getEnderecoAtual() {

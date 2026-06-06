@@ -2,8 +2,6 @@ package school.sptech.cursos.dto.historicoEnderecoUsuario;
 
 import school.sptech.cursos.entity.HistoricoEnderecoUsuario;
 
-import java.time.LocalDateTime;
-
 public class HistoricoEnderecoUsuarioResponse {
 
     private Long id;
@@ -13,7 +11,6 @@ public class HistoricoEnderecoUsuarioResponse {
     private String rua;
     private String cidade;
     private String complemento;
-    private Long usuarioId;
     private Boolean enderecoAtual;
 
     public HistoricoEnderecoUsuarioResponse() {
@@ -27,7 +24,6 @@ public class HistoricoEnderecoUsuarioResponse {
         this.rua = historicoEnderecoUsuario.getRua();
         this.cidade = historicoEnderecoUsuario.getCidade();
         this.complemento = historicoEnderecoUsuario.getComplemento();
-        this.usuarioId = historicoEnderecoUsuario.getUsuario().getId();
         this.enderecoAtual = historicoEnderecoUsuario.getEnderecoAtual();
     }
 
@@ -85,14 +81,6 @@ public class HistoricoEnderecoUsuarioResponse {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
     }
 
     public Boolean getEnderecoAtual() {
