@@ -1,6 +1,8 @@
 package school.sptech.cursos.dto.matricula;
 
 import jakarta.validation.constraints.NotNull;
+import school.sptech.cursos.dto.documento.DocumentoRequest;
+import school.sptech.cursos.dto.documento.DocumentoResponse;
 import school.sptech.cursos.enums.MatriculaEnum;
 import school.sptech.cursos.entity.Documento;
 
@@ -21,7 +23,7 @@ public class MatriculaRequest {
     private LocalDateTime dataAprovacao;
 
     @NotNull(message = "Lista de documentos é obrigatória")
-    private List<Documento> documentos;
+    private List<DocumentoRequest> documentos;
 
     @NotNull(message = "Status é obrigatório")
     private MatriculaEnum status;
@@ -42,7 +44,7 @@ public class MatriculaRequest {
         return dataAprovacao;
     }
 
-    public List<Documento> getDocumentos() {
+    public List<DocumentoRequest> getDocumentos() {
         return documentos;
     }
 
