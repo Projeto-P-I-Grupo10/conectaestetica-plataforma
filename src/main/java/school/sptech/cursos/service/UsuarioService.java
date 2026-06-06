@@ -18,6 +18,7 @@ import school.sptech.cursos.dto.usuario.UsuarioResponse;
 import school.sptech.cursos.dto.usuario.UsuarioToken;
 import school.sptech.cursos.entity.HistoricoEnderecoUsuario;
 import school.sptech.cursos.entity.Usuario;
+import school.sptech.cursos.projection.usuario.UsuarioTurmarCompradasProjection;
 import school.sptech.cursos.repository.IUsuarioRepository;
 
 import java.time.LocalDateTime;
@@ -86,7 +87,8 @@ public class UsuarioService {
         List<HistoricoEnderecoUsuario> lista = new ArrayList<>();
 
 
-        if (request.getEndereco() != null) {
+        if (request.getEndereco() != null  && !request.getEndereco().isEmpty()) {
+            int contador = 0;
             for (HistoricoEnderecoUsuarioRequest endReq : request.getEndereco()) {
 
                 HistoricoEnderecoUsuario end = new HistoricoEnderecoUsuario();
@@ -96,9 +98,14 @@ public class UsuarioService {
                 end.setRua(endReq.getRua());
                 end.setCidade(endReq.getCidade());
                 end.setComplemento(endReq.getComplemento());
-                end.setDataPesquisa(LocalDateTime.now());
-
                 end.setUsuario(usuario);
+
+                if (contador == 0) {
+                    end.setEnderecoAtual(true);
+                } else {
+                    end.setEnderecoAtual(false);
+                }
+                contador++;
 
                 lista.add(end);
             }
@@ -216,6 +223,10 @@ public class UsuarioService {
         usuario.setSenha(encoder.encode(novaSenha));
 
         repository.save(usuario);
+    }
+
+    public List<UsuarioTurmarCompradasProjection> turmasCompradasPorUsuario(Long id){
+        return repository.buscarTurmasCompradasPorUsuario(id);
     }
 
 }

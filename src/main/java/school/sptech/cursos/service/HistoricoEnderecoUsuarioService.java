@@ -1,5 +1,6 @@
 package school.sptech.cursos.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import school.sptech.cursos.dto.historicoEnderecoUsuario.HistoricoEnderecoUsuarioCreateRequest;
 import school.sptech.cursos.dto.historicoEnderecoUsuario.HistoricoEnderecoUsuarioResponse;
@@ -7,8 +8,8 @@ import school.sptech.cursos.entity.HistoricoEnderecoUsuario;
 import school.sptech.cursos.entity.Usuario;
 import school.sptech.cursos.repository.IHistoricoEnderecoUsuarioRepository;
 import school.sptech.cursos.repository.IUsuarioRepository;
-
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class HistoricoEnderecoUsuarioService {
@@ -23,9 +24,18 @@ public class HistoricoEnderecoUsuarioService {
 
     public HistoricoEnderecoUsuarioResponse salvar(HistoricoEnderecoUsuarioCreateRequest request) {
         Usuario usuario = usuarioRepository.findById(request.getUsuarioId())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        HistoricoEnderecoUsuario historico = new HistoricoEnderecoUsuario();
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
+        List<HistoricoEnderecoUsuario> enderecos = historicoRepository.findByUsuarioId(usuario.getId());
+
+        for (HistoricoEnderecoUsuario e : enderecos) {
+            if (Boolean.TRUE.equals(e.getEnderecoAtual())) {
+                e.setEnderecoAtual(false);
+                historicoRepository.save(e);
+            }
+        }
+
+        HistoricoEnderecoUsuario historico = new HistoricoEnderecoUsuario();
         historico.setCep(request.getCep());
         historico.setNumero(request.getNumero());
         historico.setUf(request.getUf());
@@ -33,20 +43,66 @@ public class HistoricoEnderecoUsuarioService {
         historico.setCidade(request.getCidade());
         historico.setComplemento(request.getComplemento());
         historico.setUsuario(usuario);
-        historico.setDataPesquisa(LocalDateTime.now());
-        this.historicoRepository.save(historico);
 
-        HistoricoEnderecoUsuarioResponse response = new HistoricoEnderecoUsuarioResponse();
-        response.setId(historico.getId());
-        response.setCep(historico.getCep());
-        response.setNumero(historico.getNumero());
-        response.setUf(historico.getUf());
-        response.setRua(historico.getRua());
-        response.setCidade(historico.getCidade());
-        response.setComplemento(historico.getComplemento());
-        response.setUsuarioId(historico.getUsuario().getId());
-        response.setDataPesquisa(historico.getDataPesquisa());
+        historico.setEnderecoAtual(true);
+        historicoRepository.save(historico);
 
-        return response;
+        return new HistoricoEnderecoUsuarioResponse(historico);
     }
+
+    public List<HistoricoEnderecoUsuarioResponse> listarPorUsuario(Long usuarioId) {
+        List<HistoricoEnderecoUsuario> enderecos = historicoRepository.findByUsuarioId(usuarioId);
+        List<HistoricoEnderecoUsuarioResponse> resposta = new ArrayList<>();
+
+        for (HistoricoEnderecoUsuario enderecoAtual : enderecos) {
+            resposta.add(new HistoricoEnderecoUsuarioResponse(enderecoAtual));
+        }
+
+        return resposta;
+    }
+
+    public HistoricoEnderecoUsuarioResponse buscarPorId(Long id) {
+        HistoricoEnderecoUsuario historico = historicoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Histórico não encontrado"));
+        return new HistoricoEnderecoUsuarioResponse(historico);
+    }
+
+    public HistoricoEnderecoUsuarioResponse atualizar(Long id, HistoricoEnderecoUsuarioCreateRequest request) {
+        HistoricoEnderecoUsuario historico = historicoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Histórico não encontrado"));
+
+        historico.setCep(request.getCep());
+        historico.setNumero(request.getNumero());
+        historico.setUf(request.getUf());
+        historico.setRua(request.getRua());
+        historico.setCidade(request.getCidade());
+        historico.setComplemento(request.getComplemento());
+
+        historicoRepository.save(historico);
+
+        return new HistoricoEnderecoUsuarioResponse(historico);
+    }
+
+    public void deletar(Long id) {
+        historicoRepository.deleteById(id);
+    }
+
+    public HistoricoEnderecoUsuarioResponse selecionarEnderecoAtual(Long enderecoId) {
+        HistoricoEnderecoUsuario enderecoSelecionado = historicoRepository.findById(enderecoId)
+                .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
+
+        Usuario usuario = enderecoSelecionado.getUsuario();
+
+        List<HistoricoEnderecoUsuario> enderecos = historicoRepository.findByUsuarioId(usuario.getId());
+        for (HistoricoEnderecoUsuario e : enderecos) {
+            if (Boolean.TRUE.equals(e.getEnderecoAtual())) {
+                e.setEnderecoAtual(false);
+                historicoRepository.save(e);
+            }
+        }
+        enderecoSelecionado.setEnderecoAtual(true);
+
+        return new HistoricoEnderecoUsuarioResponse(historicoRepository.save(enderecoSelecionado));
+    }
+
 }

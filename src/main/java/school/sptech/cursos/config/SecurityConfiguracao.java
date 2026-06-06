@@ -90,6 +90,7 @@ public class SecurityConfiguracao {
                         // libera cadastro e login
                         .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/turmas/detalhes").permitAll()
                         // qualquer outra requisição precisa estar autenticada
                         .anyRequest().authenticated()
                 )

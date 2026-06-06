@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public interface TurmaDetalhesProjection {
+    Long getTurmaId();
     String getTurmaNome();
     Boolean getTurmaCursoAtivo();
     LocalDateTime getTurmaDataInicio();
@@ -19,5 +20,9 @@ public interface TurmaDetalhesProjection {
     String getProfessorDescricao();
     String getProfessorRedesocial();
     String getAreaNome();
+    String getEnderecoRua();
+    String getEnderecoNumero();
+    String getEnderecoCidade();
+    Double getAvaliacaoCurso();
 }
 

@@ -5,7 +5,8 @@ import jakarta.validation.constraints.Pattern;
 
 public class EnderecoCursoRequest {
 
-    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP deve estar no formato NNNNN-NNN")
+    @NotBlank(message = "CEP é obrigatório")
+    @Pattern(regexp = "\\d{8}", message = "CEP deve conter 8 dígitos numéricos")
     private String cep;
     @NotBlank(message = "Rua é obrigatória")
     private String rua;

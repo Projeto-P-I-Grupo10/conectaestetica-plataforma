@@ -28,8 +28,6 @@ public class TurmaService {
     }
 
     public TurmaDetalhesProjection buscarDetalhes(Long id) {
-        cursoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Id:"+ id +" não encontrado na tabela curso: "));
         return turmaRepository.buscarDetalhesCurso(id)
                 .orElseThrow(() -> new EntityNotFoundException("Id:"+ id +" não encontrado na tabela turma: "));
     }
@@ -87,6 +85,22 @@ public class TurmaService {
         Turma turmaAtualizada = turmaRepository.save(turma);
 
         return new TurmaResponse(turmaAtualizada);
+    }
+
+    public List<TurmaDetalhesProjection> listarDetalhesRecentes() {
+        return turmaRepository.buscarTodosDetalhesRecentes();
+    }
+
+    public List<TurmaDetalhesProjection> listarDetalhesPorPreco() {
+        return turmaRepository.buscarTodosDetalhesPorPreco();
+    }
+
+    public List<TurmaDetalhesProjection> listarDetalhesPorAvalicao() {
+        return turmaRepository.buscarTodosDetalhesPorAvalicao();
+    }
+
+    public List<TurmaDetalhesProjection> listarDetalhesPorArea(String area) {
+        return turmaRepository.buscarTodosDetalhesPorArea(area);
     }
 
 }

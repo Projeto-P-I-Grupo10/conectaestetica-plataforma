@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class HistoricoEnderecoUsuarioCreateRequest {
     @NotBlank(message = "CEP é obrigatório")
-    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP deve estar no formato NNNNN-NNN")
+    @Pattern(regexp = "\\d{8}", message = "CEP deve conter 8 dígitos numéricos")
     private String cep;
     @NotBlank(message = "Número é obrigatório")
     @Size(max = 10, message = "Número deve ter no máximo 10 caracteres")
@@ -25,7 +25,6 @@ public class HistoricoEnderecoUsuarioCreateRequest {
     @NotNull(message = "UsuarioId é obrigatório")
     @Positive(message = "UsuarioId deve ser positivo")
     private Long usuarioId;
-    private LocalDateTime dataPesquisa;
 
     public String getCep() {
         return cep;
@@ -81,13 +80,5 @@ public class HistoricoEnderecoUsuarioCreateRequest {
 
     public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
-    }
-
-    public LocalDateTime getDataPesquisa() {
-        return dataPesquisa;
-    }
-
-    public void setDataPesquisa(LocalDateTime dataPesquisa) {
-        this.dataPesquisa = dataPesquisa;
     }
 }
