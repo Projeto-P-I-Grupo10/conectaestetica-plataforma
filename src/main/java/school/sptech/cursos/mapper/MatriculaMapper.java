@@ -56,13 +56,9 @@ public class MatriculaMapper implements IMapper<Matricula, MatriculaRequest, Mat
         response.setDataAprovacao(matricula.getDataAprovacao());
         response.setStatus(matricula.getStatus());
 
-        response.setUsuario(
-                new UsuarioResponse(matricula.getUsuario())
-        );
+        response.setUsuarioId(matricula.getUsuario().getId());
 
-        response.setTurma(
-                new TurmaResponse(matricula.getTurma())
-        );
+        response.setTurmaId(matricula.getTurma().getId());
 
         List<DocumentoResponse> documentos = new ArrayList<>();
 

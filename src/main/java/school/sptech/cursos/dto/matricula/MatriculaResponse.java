@@ -13,8 +13,8 @@ import java.util.List;
 
 public class MatriculaResponse {
     private Long id;
-    private UsuarioResponse usuario;
-    private TurmaResponse turma;
+    private Long usuarioId;
+    private Long turmaId;
     private LocalDateTime dataSolicitacao;
     private LocalDateTime dataAprovacao;
     private List<DocumentoResponse> documentos;
@@ -31,20 +31,20 @@ public class MatriculaResponse {
         this.id = id;
     }
 
-    public UsuarioResponse getUsuario() {
-        return usuario;
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario(UsuarioResponse usuario) {
-        this.usuario = usuario;
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
-    public TurmaResponse getTurma() {
-        return turma;
+    public Long getTurmaId() {
+        return turmaId;
     }
 
-    public void setTurma(TurmaResponse turma) {
-        this.turma = turma;
+    public void setTurmaId(Long turmaId) {
+        this.turmaId = turmaId;
     }
 
     public LocalDateTime getDataSolicitacao() {

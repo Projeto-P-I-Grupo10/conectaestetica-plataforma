@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class DocumentoRequest {
-    @NotNull(message = "Matricula é obrigatório")
     private Long matriculaId;
 
     @NotBlank(message = "Arquivo é obrigatório")

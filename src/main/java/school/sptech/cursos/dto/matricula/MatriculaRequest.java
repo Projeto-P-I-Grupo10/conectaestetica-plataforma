@@ -16,16 +16,13 @@ public class MatriculaRequest {
     @NotNull(message = "Turma é obrigatório")
     private Long turmaId;
 
-    @NotNull(message = "Data de solicitacao é obrigatória")
     private LocalDateTime dataSolicitacao;
 
-    @NotNull(message = "Data de aprovacao é obrigatória")
     private LocalDateTime dataAprovacao;
 
     @NotNull(message = "Lista de documentos é obrigatória")
     private List<DocumentoRequest> documentos;
 
-    @NotNull(message = "Status é obrigatório")
     private MatriculaEnum status;
 
     public Long getUsuarioId() {
