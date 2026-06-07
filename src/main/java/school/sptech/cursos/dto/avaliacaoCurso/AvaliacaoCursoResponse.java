@@ -5,16 +5,26 @@ import school.sptech.cursos.entity.AvaliacaoCurso;
 import school.sptech.cursos.entity.Usuario;
 
 public class AvaliacaoCursoResponse {
+    private Long id;
     private Long idCurso;
     private Double avaliacao;
     private String comentario;
     private UsuarioResponse usuario;
 
     public AvaliacaoCursoResponse(AvaliacaoCurso avaliacao) {
+        this.id = avaliacao.getId();
         this.idCurso = avaliacao.getCurso().getId();
         this.avaliacao = avaliacao.getAvaliacao();
         this.comentario = avaliacao.getComentario();
         this.usuario = new UsuarioResponse(avaliacao.getUsuario());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getIdCurso() {
