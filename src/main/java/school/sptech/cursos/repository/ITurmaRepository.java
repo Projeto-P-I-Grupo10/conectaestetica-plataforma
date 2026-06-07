@@ -36,7 +36,8 @@ public interface ITurmaRepository extends JpaRepository<Turma,Long> {
         e.numero            AS enderecoNumero,
         e.cidade            AS enderecoCidade,
         
-            AVG(ava.avaliacao)  AS avaliacaoCurso
+        AVG(ava.avaliacao)  AS avaliacaoCurso,
+        COUNT(ava.id)       AS avaliacoesTotal
         FROM turma t
         JOIN curso c
             ON c.id = t.curso_id

@@ -24,5 +24,6 @@ public interface TurmaDetalhesProjection {
     String getEnderecoNumero();
     String getEnderecoCidade();
     Double getAvaliacaoCurso();
+    Integer getAvaliacoesTotal();
 }
 
