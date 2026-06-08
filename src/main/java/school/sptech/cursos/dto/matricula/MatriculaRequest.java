@@ -45,6 +45,10 @@ public class MatriculaRequest {
         return documentos;
     }
 
+    public void setDocumentos(List<DocumentoRequest> documentos) {
+        this.documentos = documentos;
+    }
+
     public MatriculaEnum getStatus() {
         return status;
     }
