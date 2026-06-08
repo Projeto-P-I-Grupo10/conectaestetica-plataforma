@@ -29,8 +29,16 @@ public class MatriculaRequest {
         return usuarioId;
     }
 
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
     public Long getTurmaId() {
         return turmaId;
+    }
+
+    public void setTurmaId(Long turmaId) {
+        this.turmaId = turmaId;
     }
 
     public LocalDateTime getDataSolicitacao() {
@@ -43,6 +51,10 @@ public class MatriculaRequest {
 
     public List<DocumentoRequest> getDocumentos() {
         return documentos;
+    }
+
+    public void setDocumentos(List<DocumentoRequest> documentos) {
+        this.documentos = documentos;
     }
 
     public MatriculaEnum getStatus() {
