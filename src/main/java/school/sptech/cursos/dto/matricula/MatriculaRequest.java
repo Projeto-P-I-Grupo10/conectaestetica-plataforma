@@ -29,8 +29,16 @@ public class MatriculaRequest {
         return usuarioId;
     }
 
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
     public Long getTurmaId() {
         return turmaId;
+    }
+
+    public void setTurmaId(Long turmaId) {
+        this.turmaId = turmaId;
     }
 
     public LocalDateTime getDataSolicitacao() {
