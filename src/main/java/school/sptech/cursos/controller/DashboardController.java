@@ -23,24 +23,24 @@ public class DashboardController {
         this.dash = dash;
     }
 
-    @GetMapping("/top5")
+    @GetMapping("/top-5")
     public ResponseEntity<List<DashTop5Projection>> top5(){
         return ResponseEntity.status(200).body(dash.top5());
     }
 
-    @GetMapping("/qtdVendasNumDeterminadoIntervalo/{dataInicio}/{dataFim}")
+    @GetMapping("/vendas/quantidade/{dataInicio}/{dataFim}")
     public ResponseEntity<List<DashQtdComprasNumDeterminadoIntervaloProjection>> qtdVendasNumDeterminadoIntervalo(
             @PathVariable LocalDate dataInicio, @PathVariable LocalDate dataFim
             ){
         return ResponseEntity.status(200).body(dash.qtdVendasNumDeterminadoIntervalo(dataInicio, dataFim));
     }
 
-    @GetMapping("/totalLucroSemena")
+    @GetMapping("/total-lucro-semana")
     public ResponseEntity<DashLucroSemanaResponse> totalFaturamentoSemena(){
         return ResponseEntity.status(200).body(dash.totalFaturamentoNaSemana());
     }
 
-    @GetMapping("/faturamentoTotal")
+    @GetMapping("/faturamento-total")
     public ResponseEntity<DashFaturamentoTotalResponse> faturamentoTotal(){
         return ResponseEntity.status(200).body(dash.faturamentoTotal());
     }
