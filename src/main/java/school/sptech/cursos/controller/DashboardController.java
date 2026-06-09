@@ -45,7 +45,7 @@ public class DashboardController {
         return ResponseEntity.status(200).body(dash.faturamentoTotal());
     }
 
-    @GetMapping("/ticketMedio")
+    @GetMapping("/ticket-medio")
     public ResponseEntity<DashTicketMedioResponse> ticketMedio(){
         return ResponseEntity.status(200).body(dash.ticketMedio());
     }
