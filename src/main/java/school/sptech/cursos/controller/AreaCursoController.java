@@ -11,7 +11,7 @@ import school.sptech.cursos.service.AreaCursoService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/areaCursos")
+@RequestMapping("/area-cursos")
 @CrossOrigin(origins = "*")
 public class AreaCursoController {
 
