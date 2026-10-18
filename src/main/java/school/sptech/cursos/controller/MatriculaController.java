@@ -4,14 +4,15 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.cursos.dto.matricula.AtualizarStatusMatriculaRequest;
 import school.sptech.cursos.dto.matricula.MatriculaRequest;
 import school.sptech.cursos.dto.matricula.MatriculaResponse;
 import school.sptech.cursos.service.MatriculaService;
-
-import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -29,10 +30,10 @@ public class MatriculaController {
             @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
     })
     @GetMapping
-    public ResponseEntity<List<MatriculaResponse>> listar() {
+    public ResponseEntity<Page<MatriculaResponse>> listar(@ParameterObject Pageable pageable) {
 
-        List<MatriculaResponse> matriculas =
-                service.listar();
+        Page<MatriculaResponse> matriculas =
+                service.listar(pageable);
 
         return ResponseEntity.status(200).body(matriculas);
     }

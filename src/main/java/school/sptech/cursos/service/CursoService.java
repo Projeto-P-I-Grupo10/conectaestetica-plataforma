@@ -1,6 +1,8 @@
 package school.sptech.cursos.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import school.sptech.cursos.dto.curso.CursoRequest;
 import school.sptech.cursos.dto.curso.CursoResponse;
@@ -10,9 +12,6 @@ import school.sptech.cursos.entity.Professor;
 import school.sptech.cursos.repository.IAreaCursoRepository;
 import school.sptech.cursos.repository.ICursoRepository;
 import school.sptech.cursos.repository.IProfessorRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CursoService {
@@ -25,16 +24,10 @@ public class CursoService {
         this.repositoryProfessor = repositoryProfessor;
     }
 
-    public List<CursoResponse> listarCursos()
+    public Page<CursoResponse> listarCursos(Pageable pageable)
     {
-        List<Curso> cursos = this.repository.findAll();
-        List<CursoResponse> cursosResponse = new ArrayList<>();
-
-        for (Curso curso : cursos)
-        {
-            cursosResponse.add(new CursoResponse(curso));
-        }
-        return cursosResponse;
+        return this.repository.findAll(pageable)
+                .map(CursoResponse::new);
     }
 
     public CursoResponse buscarPorId(Long id)
