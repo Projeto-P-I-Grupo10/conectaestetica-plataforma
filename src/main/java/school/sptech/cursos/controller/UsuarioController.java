@@ -6,11 +6,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.cursos.dto.usuario.*;
 import school.sptech.cursos.projection.usuario.UsuarioTurmarCompradasProjection;
@@ -19,7 +21,7 @@ import school.sptech.cursos.service.UsuarioService;
 import java.time.Duration;
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
@@ -28,13 +30,18 @@ public class UsuarioController {
 
     @Value("${jwt.validity}")
     private long jwtValidity;
+
     private final UsuarioService service;
 
     public UsuarioController(UsuarioService service) {
         this.service = service;
     }
 
-    @Operation(summary = "Lista todos os usuários", description = "Retorna uma lista de usuários cadastrados",security = { @SecurityRequirement(name = "bearerAuth") })
+    @Operation(
+            summary = "Lista todos os usuários",
+            description = "Retorna uma lista de usuários cadastrados",
+            security = {@SecurityRequirement(name = "bearerAuth")}
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
     })
@@ -43,27 +50,41 @@ public class UsuarioController {
         return ResponseEntity.ok(service.listar());
     }
 
-    @Operation(summary = "Cria um novo usuário", description = "Cadastra um usuário com base nos dados enviados")
+    @Operation(
+            summary = "Cria um novo usuário",
+            description = "Cadastra um usuário com base nos dados enviados"
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     @PostMapping
-    public ResponseEntity<UsuarioResponse> criar(@RequestBody @Valid UsuarioRequest request) {
+    public ResponseEntity<UsuarioResponse> criar(
+            @RequestBody @Valid UsuarioRequest request
+    ) {
         return ResponseEntity.status(201).body(service.salvar(request));
     }
 
-    @Operation(summary = "Busca usuário por ID", description = "Retorna um usuário específico pelo seu identificador",security = { @SecurityRequirement(name = "bearerAuth") })
+    @Operation(
+            summary = "Busca usuário por ID",
+            description = "Retorna um usuário específico pelo seu identificador",
+            security = {@SecurityRequirement(name = "bearerAuth")}
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<UsuarioResponse> buscarPorId(
+            @PathVariable Long id
+    ) {
         return ResponseEntity.ok(service.buscarId(id));
     }
 
-    @Operation(summary = "Login de usuário", description = "Autentica o usuário e retorna token JWT")
+    @Operation(
+            summary = "Login de usuário",
+            description = "Autentica o usuário e retorna token JWT"
+    )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Login realizado com sucesso"),
             @ApiResponse(responseCode = "401", description = "Credenciais inválidas")
@@ -74,9 +95,13 @@ public class UsuarioController {
             HttpServletResponse response
     ) {
 
-        UsuarioToken autenticado = service.autenticar(request.getEmail(), request.getSenha());
+        UsuarioToken autenticado =
+                service.autenticar(request.getEmail(), request.getSenha());
 
-        ResponseCookie cookie = ResponseCookie.from(COOKIE_NOME, autenticado.getToken())
+        ResponseCookie cookie = ResponseCookie.from(
+                        COOKIE_NOME,
+                        autenticado.getToken()
+                )
                 .httpOnly(true)
                 .secure(false)
                 .sameSite("Strict")
@@ -84,57 +109,100 @@ public class UsuarioController {
                 .maxAge(Duration.ofSeconds(jwtValidity))
                 .build();
 
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        response.addHeader(
+                HttpHeaders.SET_COOKIE,
+                cookie.toString()
+        );
 
         UsuarioToken sessao = new UsuarioToken();
+
         sessao.setId(autenticado.getId());
         sessao.setNome(autenticado.getNome());
         sessao.setEmail(autenticado.getEmail());
         sessao.setToken(autenticado.getToken());
 
-
         return ResponseEntity.ok(sessao);
     }
 
-    @Operation(summary = "Logout de usuário", description = "Remove o cookie de autenticação",security = { @SecurityRequirement(name = "bearerAuth") })
+    @Operation(
+            summary = "Logout de usuário",
+            description = "Remove o cookie de autenticação",
+            security = {@SecurityRequirement(name = "bearerAuth")}
+    )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Logout realizado com sucesso")
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Logout realizado com sucesso"
+            )
     })
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(HttpServletResponse response) {
-        ResponseCookie cookie = ResponseCookie.from(COOKIE_NOME, "")
+    public ResponseEntity<Void> logout(
+            HttpServletResponse response
+    ) {
+
+        ResponseCookie cookie = ResponseCookie.from(
+                        COOKIE_NOME,
+                        ""
+                )
                 .httpOnly(true)
                 .secure(false)
                 .sameSite("Strict")
                 .path("/")
-                .maxAge(0) // apaga cookie
+                .maxAge(0)
                 .build();
 
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        response.addHeader(
+                HttpHeaders.SET_COOKIE,
+                cookie.toString()
+        );
+
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Atualiza usuário", description = "Atualiza os dados de um usuário existente",security = { @SecurityRequirement(name = "bearerAuth") })
+    @Operation(
+            summary = "Atualiza usuário",
+            description = "Atualiza os dados de um usuário existente",
+            security = {@SecurityRequirement(name = "bearerAuth")}
+    )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Usuário atualizado com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Usuário não encontrado"
+            )
     })
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponse> atualizar(
             @PathVariable Long id,
             @RequestBody @Valid UsuarioAtualizarRequest request
     ) {
-        return ResponseEntity.ok(service.atualizar(id, request));
+        return ResponseEntity.ok(
+                service.atualizar(id, request)
+        );
     }
 
-
-    @Operation(summary = "Deleta usuário", description = "Remove um usuário pelo seu ID",security = { @SecurityRequirement(name = "bearerAuth") })
+    @Operation(
+            summary = "Deleta usuário",
+            description = "Remove um usuário pelo seu ID",
+            security = {@SecurityRequirement(name = "bearerAuth")}
+    )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Usuário deletado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Usuário deletado com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Usuário não encontrado"
+            )
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(
+            @PathVariable Long id
+    ) {
         service.deletarPorID(id);
         return ResponseEntity.noContent().build();
     }
@@ -142,30 +210,89 @@ public class UsuarioController {
     @PostMapping("/{id}/verificar-senha")
     public ResponseEntity<ResetSenhaResponse> verificarSenha(
             @PathVariable Long id,
-            @RequestBody ResetSenhaRequest request) {
+            @RequestBody ResetSenhaRequest request
+    ) {
 
-        if (!service.verificarSenhaUsuario(id, request.getSenhaAtual())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new ResetSenhaResponse("Senha atual incorreta",HttpStatus.UNAUTHORIZED));
+        if (!service.verificarSenhaUsuario(
+                id,
+                request.getSenhaAtual()
+        )) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(
+                            new ResetSenhaResponse(
+                                    "Senha atual incorreta",
+                                    HttpStatus.UNAUTHORIZED
+                            )
+                    );
         }
 
-        return ResponseEntity.ok(new ResetSenhaResponse("Senha válida",HttpStatus.OK));
+        return ResponseEntity.ok(
+                new ResetSenhaResponse(
+                        "Senha válida",
+                        HttpStatus.OK
+                )
+        );
     }
 
+    @Operation(
+            summary = "Atualiza senha do usuário",
+            description = "Permite que o usuário altere apenas a própria senha",
+            security = {@SecurityRequirement(name = "bearerAuth")}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Senha atualizada com sucesso"
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Usuário sem permissão para alterar esta senha"
+            )
+    })
     @PatchMapping("/{id}/senha")
     public ResponseEntity<ResetSenhaResponse> atualizarSenha(
             @PathVariable Long id,
-            @RequestBody ResetSenhaNovaRequest request) {
+            @RequestBody ResetSenhaNovaRequest request,
+            Authentication authentication
+    ) {
 
-        service.atualizarSenhaUsuario(id, request.getNovaSenha());
-        return ResponseEntity.ok(new ResetSenhaResponse("Senha atualizada com sucesso",HttpStatus.OK));
+        String emailUsuarioLogado = authentication.getName();
+
+        UsuarioResponse usuarioLogado =
+                service.buscarPorEmail(emailUsuarioLogado);
+
+        if (!usuarioLogado.getId().equals(id)) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body(
+                            new ResetSenhaResponse(
+                                    "Você não tem permissão para alterar esta senha",
+                                    HttpStatus.FORBIDDEN
+                            )
+                    );
+        }
+
+        service.atualizarSenhaUsuario(
+                id,
+                request.getNovaSenha()
+        );
+
+        return ResponseEntity.ok(
+                new ResetSenhaResponse(
+                        "Senha atualizada com sucesso",
+                        HttpStatus.OK
+                )
+        );
     }
 
     @GetMapping("/{id}/turmas-compradas-por-usuario")
-    public ResponseEntity<List<UsuarioTurmarCompradasProjection>> turmasCompradasPorUsuario(@PathVariable Long id){
-        return ResponseEntity.ok(service.turmasCompradasPorUsuario(id));
+    public ResponseEntity<List<UsuarioTurmarCompradasProjection>>
+    turmasCompradasPorUsuario(
+            @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(
+                service.turmasCompradasPorUsuario(id)
+        );
     }
-
-
-
 }
