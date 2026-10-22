@@ -15,12 +15,13 @@ import school.sptech.cursos.entity.Usuario;
 import school.sptech.cursos.enums.MatriculaEnum;
 import school.sptech.cursos.mapper.DocumentoMapper;
 import school.sptech.cursos.mapper.MatriculaMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import school.sptech.cursos.repository.IMatriculaRepository;
 import school.sptech.cursos.repository.ITurmaRepository;
 import school.sptech.cursos.repository.IUsuarioRepository;
 
 import java.time.LocalDateTime;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 @Service
@@ -44,12 +45,10 @@ public class MatriculaService {
         this.documentoMapper = documentoMapper;
     }
 
-    public List<MatriculaResponse> listar() {
+    public Page<MatriculaResponse> listar(Pageable pageable) {
 
-        return matriculaRepository.findAll()
-                .stream()
-                .map(matriculaMapper::toResponse)
-                .toList();
+        return matriculaRepository.findAll(pageable)
+                .map(matriculaMapper::toResponse);
     }
 
     public MatriculaResponse buscarPorId(Long id) {

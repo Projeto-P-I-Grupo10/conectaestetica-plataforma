@@ -82,11 +82,8 @@ public class SecurityConfiguracao {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        // libera Swagger/OpenAPI
-                        .requestMatchers(
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**"
-                        ).permitAll()
+                        // libera Swagger/OpenAPI e demais rotas públicas
+                        .requestMatchers(URLS_PERMITIDAS).permitAll()
                         // libera cadastro e login
                         .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
