@@ -18,6 +18,8 @@ import school.sptech.cursos.dto.usuario.UsuarioResponse;
 import school.sptech.cursos.dto.usuario.UsuarioToken;
 import school.sptech.cursos.entity.HistoricoEnderecoUsuario;
 import school.sptech.cursos.entity.Usuario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import school.sptech.cursos.projection.usuario.UsuarioTurmarCompradasProjection;
 import school.sptech.cursos.repository.IUsuarioRepository;
 
@@ -42,23 +44,19 @@ public class UsuarioService {
         this.repository = repository;
     }
 
-    public List<UsuarioResponse> listar() {
-        List<Usuario> usuarios = repository.findAll();
-        List<UsuarioResponse> resposta = new ArrayList<>();
+    public Page<UsuarioResponse> listar(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(this::toResponse);
+    }
 
-        for (Usuario usuario : usuarios) {
-            UsuarioResponse response = new UsuarioResponse();
-
-            response.setId(usuario.getId());
-            response.setNome(usuario.getNome());
-            response.setEmail(usuario.getEmail());
-            response.setTelefone(usuario.getTelefone());
-            response.setTipoUsuario(usuario.getTipoUsuario());
-
-            resposta.add(response);
-        }
-
-        return resposta;
+    private UsuarioResponse toResponse(Usuario usuario) {
+        UsuarioResponse response = new UsuarioResponse();
+        response.setId(usuario.getId());
+        response.setNome(usuario.getNome());
+        response.setEmail(usuario.getEmail());
+        response.setTelefone(usuario.getTelefone());
+        response.setTipoUsuario(usuario.getTipoUsuario());
+        return response;
     }
 
     public UsuarioResponse salvar(UsuarioRequest request) {

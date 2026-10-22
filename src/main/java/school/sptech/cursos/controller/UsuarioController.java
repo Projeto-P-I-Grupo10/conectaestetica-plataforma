@@ -7,7 +7,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -46,8 +49,8 @@ public class UsuarioController {
             @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
     })
     @GetMapping
-    public ResponseEntity<List<UsuarioResponse>> listar() {
-        return ResponseEntity.ok(service.listar());
+    public ResponseEntity<Page<UsuarioResponse>> listar(@ParameterObject Pageable pageable) {
+        return ResponseEntity.ok(service.listar(pageable));
     }
 
     @Operation(

@@ -1,14 +1,15 @@
 package school.sptech.cursos.controller;
 
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.cursos.dto.curso.CursoRequest;
 import school.sptech.cursos.dto.curso.CursoResponse;
 import school.sptech.cursos.service.CursoService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/cursos")
@@ -21,9 +22,9 @@ public class CursoController {
         this.service = service;
     }
     @GetMapping
-    public ResponseEntity<List<CursoResponse>> listarCursos()
+    public ResponseEntity<Page<CursoResponse>> listarCursos(@ParameterObject Pageable pageable)
     {
-        List<CursoResponse> cursos = this.service.listarCursos();
+        Page<CursoResponse> cursos = this.service.listarCursos(pageable);
         if(cursos.isEmpty()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
