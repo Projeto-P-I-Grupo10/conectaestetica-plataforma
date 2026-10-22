@@ -138,6 +138,21 @@ public class UsuarioService {
 
     }
 
+    public UsuarioResponse buscarPorEmail(String email) {
+        Usuario usuario = repository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+
+        UsuarioResponse response = new UsuarioResponse();
+
+        response.setId(usuario.getId());
+        response.setNome(usuario.getNome());
+        response.setEmail(usuario.getEmail());
+        response.setTelefone(usuario.getTelefone());
+        response.setTipoUsuario(usuario.getTipoUsuario());
+
+        return response;
+    }
+
     public UsuarioToken autenticar(String email, String senha) {
         var credentials = new UsernamePasswordAuthenticationToken(email, senha);
         Authentication authentication = authenticationManager.authenticate(credentials);
