@@ -1,3 +1,4 @@
+
 package school.sptech.cursos.service;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -23,12 +24,12 @@ import org.springframework.data.domain.Pageable;
 import school.sptech.cursos.projection.usuario.UsuarioTurmarCompradasProjection;
 import school.sptech.cursos.repository.IUsuarioRepository;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UsuarioService {
+
     private final IUsuarioRepository repository;
 
     @Autowired
@@ -39,6 +40,9 @@ public class UsuarioService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private EmailService emailService;
 
     public UsuarioService(IUsuarioRepository repository) {
         this.repository = repository;
@@ -75,6 +79,7 @@ public class UsuarioService {
                     "Telefone já cadastrado"
             );
         }
+
         String senhaCriptografada = passwordEncoder.encode(request.getSenha());
         usuario.setNome(request.getNome());
         usuario.setEmail(request.getEmail());
@@ -84,11 +89,10 @@ public class UsuarioService {
 
         List<HistoricoEnderecoUsuario> lista = new ArrayList<>();
 
-
-        if (request.getEndereco() != null  && !request.getEndereco().isEmpty()) {
+        if (request.getEndereco() != null && !request.getEndereco().isEmpty()) {
             int contador = 0;
-            for (HistoricoEnderecoUsuarioRequest endReq : request.getEndereco()) {
 
+            for (HistoricoEnderecoUsuarioRequest endReq : request.getEndereco()) {
                 HistoricoEnderecoUsuario end = new HistoricoEnderecoUsuario();
                 end.setCep(endReq.getCep());
                 end.setNumero(endReq.getNumero());
@@ -103,8 +107,8 @@ public class UsuarioService {
                 } else {
                     end.setEnderecoAtual(false);
                 }
-                contador++;
 
+                contador++;
                 lista.add(end);
             }
         }
@@ -112,6 +116,8 @@ public class UsuarioService {
         usuario.setEndereco(lista);
 
         usuario = repository.save(usuario);
+
+        emailService.enviarBoasVindas(usuario.getEmail(), usuario.getNome());
 
         UsuarioResponse response = new UsuarioResponse();
         response.setId(usuario.getId());
@@ -135,7 +141,6 @@ public class UsuarioService {
         response.setTipoUsuario(usuario.getTipoUsuario());
 
         return response;
-
     }
 
     public UsuarioResponse buscarPorEmail(String email) {
@@ -172,7 +177,6 @@ public class UsuarioService {
 
         return response;
     }
-
 
     public UsuarioResponse atualizar(Long id, UsuarioAtualizarRequest request) {
         Usuario usuario = repository.findById(id)
@@ -217,6 +221,7 @@ public class UsuarioService {
         if (!repository.existsById(id)) {
             throw new EntityNotFoundException("Usuário não encontrado");
         }
+
         repository.deleteById(id);
     }
 
@@ -236,10 +241,11 @@ public class UsuarioService {
         usuario.setSenha(encoder.encode(novaSenha));
 
         repository.save(usuario);
+
+        emailService.enviarSenhaAlterada(usuario.getEmail(), usuario.getNome());
     }
 
-    public List<UsuarioTurmarCompradasProjection> turmasCompradasPorUsuario(Long id){
+    public List<UsuarioTurmarCompradasProjection> turmasCompradasPorUsuario(Long id) {
         return repository.buscarTurmasCompradasPorUsuario(id);
     }
-
 }

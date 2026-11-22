@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import school.sptech.cursos.dto.usuario.*;
 import school.sptech.cursos.projection.usuario.UsuarioTurmarCompradasProjection;
+import school.sptech.cursos.service.RecuperacaoSenhaService;
 import school.sptech.cursos.service.UsuarioService;
 
 import java.time.Duration;
@@ -35,9 +36,11 @@ public class UsuarioController {
     private long jwtValidity;
 
     private final UsuarioService service;
+    private final RecuperacaoSenhaService recuperacaoSenhaService;
 
-    public UsuarioController(UsuarioService service) {
+    public UsuarioController(UsuarioService service, RecuperacaoSenhaService recuperacaoSenhaService) {
         this.service = service;
+        this.recuperacaoSenhaService = recuperacaoSenhaService;
     }
 
     @Operation(
@@ -286,6 +289,46 @@ public class UsuarioController {
                         "Senha atualizada com sucesso",
                         HttpStatus.OK
                 )
+        );
+    }
+
+    @Operation(
+            summary = "Esqueci minha senha",
+            description = "Envia por e-mail um link para redefinir a senha. Sempre responde 200, exista ou não o e-mail."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Solicitação processada")
+    })
+    @PostMapping("/esqueci-senha")
+    public ResponseEntity<ResetSenhaResponse> esqueciSenha(
+            @RequestBody @Valid EsqueciSenhaRequest request
+    ) {
+        recuperacaoSenhaService.solicitarRecuperacao(request.getEmail());
+
+        return ResponseEntity.ok(
+                new ResetSenhaResponse(
+                        "Se o e-mail estiver cadastrado, você receberá as instruções para redefinir a senha",
+                        HttpStatus.OK
+                )
+        );
+    }
+
+    @Operation(
+            summary = "Redefinir senha com token",
+            description = "Define a nova senha usando o token recebido por e-mail"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Senha redefinida com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Token inválido/expirado ou senha inválida")
+    })
+    @PostMapping("/redefinir-senha")
+    public ResponseEntity<ResetSenhaResponse> redefinirSenha(
+            @RequestBody @Valid RedefinirSenhaTokenRequest request
+    ) {
+        recuperacaoSenhaService.redefinirSenha(request.getToken(), request.getNovaSenha());
+
+        return ResponseEntity.ok(
+                new ResetSenhaResponse("Senha redefinida com sucesso", HttpStatus.OK)
         );
     }
 
