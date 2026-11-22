@@ -107,9 +107,11 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
         String method = request.getMethod();
 
-        // Ignora validação JWT para POST /usuarios e POST /usuarios/login
+        // Ignora validação JWT para endpoints públicos (cadastro, login e recuperação de senha)
         return ("/usuarios".equals(path) && "POST".equalsIgnoreCase(method))
-                || ("/usuarios/login".equals(path) && "POST".equalsIgnoreCase(method));
+                || ("/usuarios/login".equals(path) && "POST".equalsIgnoreCase(method))
+                || ("/usuarios/esqueci-senha".equals(path) && "POST".equalsIgnoreCase(method))
+                || ("/usuarios/redefinir-senha".equals(path) && "POST".equalsIgnoreCase(method));
     }
 
 //    @Override
